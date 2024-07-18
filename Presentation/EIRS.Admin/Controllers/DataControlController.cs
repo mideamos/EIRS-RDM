@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Elmah;
 using EIRS.Repository;
-//using static EIRS.Repository.DataControlRepository;
 using System;
 using EIRS.Common;
 using System.Linq;
