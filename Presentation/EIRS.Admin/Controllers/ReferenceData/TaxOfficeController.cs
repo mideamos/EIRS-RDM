@@ -358,13 +358,13 @@ namespace EIRS.Admin.Controllers
             Dictionary<string, object> dcResponse = new Dictionary<string, object>();
             IList<TaxOfficeAddress> lstTaxOfficeAddress = SessionManager.lstTaxOfficeAddress != null ? SessionManager.lstTaxOfficeAddress : new List<TaxOfficeAddress>();
             TaxOfficeAddress mObjTaxOfficeAddress = lstTaxOfficeAddress.Where(t => t.intTrack != EnumList.Track.DELETE).Count() > 0 ? lstTaxOfficeAddress.Where(t => t.intTrack != EnumList.Track.DELETE).FirstOrDefault() : new TaxOfficeAddress();
-
+            var building = SessionManager.lstBuilding.FirstOrDefault(o=>o.BuildingID == pObjTaxOfficeAddress.BuildingID);
             mObjTaxOfficeAddress.RowID = lstTaxOfficeAddress.Count + 1;
             mObjTaxOfficeAddress.AddressTypeID = pObjTaxOfficeAddress.AddressTypeID;
             mObjTaxOfficeAddress.AddressTypeName = pObjTaxOfficeAddress.AddressTypeName;
             mObjTaxOfficeAddress.BuildingID = pObjTaxOfficeAddress.BuildingID;
-            mObjTaxOfficeAddress.BuildingName = pObjTaxOfficeAddress.BuildingName;
-            mObjTaxOfficeAddress.BuildingRIN = pObjTaxOfficeAddress.BuildingRIN;
+            mObjTaxOfficeAddress.BuildingName = building!=null? building.BuildingName:"";
+            mObjTaxOfficeAddress.BuildingRIN = building != null ? building.BuildingRIN:"";
             mObjTaxOfficeAddress.intTrack = EnumList.Track.UPDATE;
 
             if (lstTaxOfficeAddress.Where(t => t.intTrack != EnumList.Track.DELETE).Count() == 0)

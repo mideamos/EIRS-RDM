@@ -172,7 +172,7 @@ namespace EIRS.Admin.Controllers
 
             IDictionary<string, object> dcData = new BLBuilding().BL_SearchBuilding(mObjBuilding);
             IList<usp_SearchBuilding_Result> lstBuilding = (IList<usp_SearchBuilding_Result>)dcData["BuildingList"];
-
+            SessionManager.lstBuilding = lstBuilding;
             return Json(new
             {
                 draw = vDraw,

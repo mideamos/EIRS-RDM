@@ -129,6 +129,20 @@ $(document).ready(function () {
 
 });
 
+
+
+function jsfn_AddTaxOfficeAddressII(bldid) {
+
+    var vData = {
+        BuildingID: bldid,
+        BuildingRIN: '',
+        BuildingName: '',
+        AddressTypeID: $("#cboAddressType").val(),
+        AddressTypeName: $("#cboAddressType option:selected").text()
+    }
+    jsfn_ShowLoading();
+    jsfn_ajaxPost('/TaxOffice/AddTaxOfficeAddress', vData, jsfn_AddTaxOfficeAddressResponse);
+}
 function jsfn_AddTaxOfficeAddress(bldid, bldrin, bldname) {
 
     var vData = {
@@ -264,9 +278,11 @@ function jsfn_BuildDataTable() {
             { "data": "ActiveText", "orderable": true, "name": "ActiveText" },
             {
                 "data": "", "orderable": false, "name": "Action", "render": function (data, type, Bui) {
+                    
                     return '<div class="btn-group">' + '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">' +
                         'Actions  <span class="caret"></span></button><ul class="dropdown-menu" role="menu">'
-                        + '<li><a onclick="javascript:jsfn_AddTaxOfficeAddress(' + Bui.BuildingID + ',"' + Bui.BuildingRIN + '","' + Bui.BuildingName+'")">Select Building</a></li>'
+                       + '<li><a onclick="javascript:jsfn_AddTaxOfficeAddressII(' + Bui.BuildingID + ')">Select Building</a></li>'
+                      //  + '<li><a onclick="javascript:jsfn_AddTaxOfficeAddress(' + Bui.BuildingID + ',' + Bui.BuildingRIN + ',' + Bui.BuildingName + ')">Select Building</a></li>'
                         + '</ul></div>';
                 }
             },

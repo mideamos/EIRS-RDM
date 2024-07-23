@@ -45,6 +45,10 @@ namespace EIRS.Admin
         {
             get { return HttpContext.Current.Session["lstTaxOfficeAddress"] != null ? JsonConvert.DeserializeObject<IList<TaxOfficeAddress>>(HttpContext.Current.Session["lstTaxOfficeAddress"].ToString()) : null; }
             set { HttpContext.Current.Session["lstTaxOfficeAddress"] = JsonConvert.SerializeObject(value); }
+        } public static IList<usp_SearchBuilding_Result> lstBuilding
+        {
+            get { return HttpContext.Current.Session["lstBuilding"] != null ? JsonConvert.DeserializeObject<IList<usp_SearchBuilding_Result>>(HttpContext.Current.Session["lstBuilding"].ToString()) : null; }
+            set { HttpContext.Current.Session["lstBuilding"] = JsonConvert.SerializeObject(value); }
         }
         public static IList<TempAssHolder> lstTempAssHolder
         {
