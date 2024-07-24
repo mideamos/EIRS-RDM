@@ -36,6 +36,26 @@ namespace EIRS.Admin.Controllers
                 filterContext.Result = new RedirectResult("/Login.aspx?returnUrl=" + filterContext.HttpContext.Request.Url.PathAndQuery);
             }
         }
+        public void UI_FillDiDropDown(MST_Users pObjUsers = null)
+        {
+            if (pObjUsers == null)
+                pObjUsers = new MST_Users();
+
+            pObjUsers.intStatus = 1;
+
+            IList<DropDownListResult> lstUsers = new BLUser().REP_GetApproverDetList(pObjUsers, "1");
+            ViewBag.UserListForapproval = new SelectList(lstUsers, "id", "text");
+        }
+        public void UI_FillDiDirectorDropDown(MST_Users pObjUsers = null)
+        {
+            if (pObjUsers == null)
+                pObjUsers = new MST_Users();
+
+            pObjUsers.intStatus = 1;
+
+            IList<DropDownListResult> lstUsers = new BLUser().REP_GetApproverDetList(pObjUsers, "2");
+            ViewBag.UserListForDirector = new SelectList(lstUsers, "id", "text");
+        }
 
         public void UI_FillCompanyDropDown(Company pObjCompany = null)
         {

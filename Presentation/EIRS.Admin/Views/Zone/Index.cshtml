@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EIRS.Admin.Models.Zone>
+﻿@model IEnumerable<EIRS.BOL.spZoneDetailNew_Result>
 
 
 
@@ -15,7 +15,7 @@
             </h1>
         </div>
         <div class="col-xs-12 col-sm-5 text-right">
-            <a href="@Url.Action("AddZone","Zone")" class="btn btn-default">
+            <a href="@Url.Action("Add","Zone")" class="btn btn-default">
                 Add Zone
             </a>
         </div>
@@ -26,9 +26,9 @@
                 <div class="jarviswidget jarviswidget-color-green" data- id="dvSizeList">
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Zone List </h2>
+                        <h2>Size List </h2>
                         <div class="widget-toolbar">
-                            <a href="@Url.Action("AddZone","Zone")" class="btn btn-primary">Add Zone </a>
+                            <a href="@Url.Action("Add","Zone")" class="btn btn-primary">Add Zone </a>
                         </div>
                     </header>
                     <div>
@@ -44,7 +44,7 @@
                                         </th>
                                         <th class="hasinput" style="width:25%">
                                             <input type="text" class="form-control" placeholder="Filter LGA" />
-                                        </th> 
+                                        </th>
                                         <th class="hasinput" style="width:25%">
                                             <input type="text" class="form-control" placeholder="Filter Status" />
                                         </th>

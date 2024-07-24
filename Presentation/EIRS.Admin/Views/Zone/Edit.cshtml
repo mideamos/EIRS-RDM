@@ -2,8 +2,7 @@
 
 @{
     ViewBag.Title = "Edit Zone";
-    IList<AssessmentRule_Profile> lstAssessmentRuleProfile = (IList<AssessmentRule_Profile>)ViewBag.AssessmentRuleProfileList;
-    IList<AssessmentRule_AssessmentItem> lstAssessmentRuleItem = (IList<AssessmentRule_AssessmentItem>)ViewBag.AssessmentRuleItemList;
+   
 }
 
 <div id="content">
@@ -35,8 +34,9 @@
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationBootstrap()
                                 @Html.HiddenFor(model => model.ZoneId, htmlAttributes: new { @value = Model.ZoneId, @id = "hdnAssessmentRuleID" })
+                                @Html.HiddenFor(model => model.ZoneCode, htmlAttributes: new { @value = Model.ZoneCode, @id = "hdnAssessmentCodeID" })
                                 @*@Html.HiddenFor(model => model.AssessmentRuleCode, htmlAttributes: new { @value = Model.AssessmentRuleCode })
-                                @Html.Hidden("hdnAssessmentItemIds", "")*@
+                                    @Html.Hidden("hdnAssessmentItemIds", "")*@
                                 <header id="hdStep1">
                                     Zone Details
                                 </header>
@@ -51,51 +51,45 @@
                                     </div>
                                 }
 
-                        <fieldset id="fsStep1">
-                            <section>
-                                @Html.LabelFor(model => model.ZoneName, htmlAttributes: new { @class = "label" })
-                                <label class="input">
-                                    <i class="icon-append fa fa-question-circle"></i>
-                                    @Html.TextBoxFor(model => model.ZoneName, htmlAttributes: new { @tabindex = "1", @placeholder = "Enter zone name" })
-                                    <b class="tooltip tooltip-top-right">
-                                        <i class="fa fa-warning txt-color-teal"></i>
-                                        Auto numbering by system
-                                    </b>
-                                </label>
-                            </section>
+                                <fieldset id="fsStep1">
+                                    <section>
+                                        @Html.LabelFor(model => model.ZoneName, htmlAttributes: new { @class = "label" })
+                                        <label class="input">
+                                            <i class="icon-append fa fa-question-circle"></i>
+                                            @Html.TextBoxFor(model => model.ZoneName, htmlAttributes: new { @tabindex = "1", @placeholder = "Enter zone name" })
+                                            <b class="tooltip tooltip-top-right">
+                                                <i class="fa fa-warning txt-color-teal"></i>
+                                                Auto numbering by system
+                                            </b>
+                                        </label>
+                                    </section>
 
-                            <section>
-                                @Html.LabelFor(model => model.LgaId, htmlAttributes: new { @class = "label required" })
-                                <label class="input">
-                                    @Html.DropDownListFor(model => model.LgaId, (SelectList)ViewBag.lga, "Select LGA", htmlAttributes: new { @tabindex = "2", @class = "select2", @width = "100%" })
-                                </label>
-                                @Html.ValidationMessageFor(model => model.LgaId, "", htmlAttributes: new { @class = "help-block" })
-                            </section>
-                           
-                            <section>
-                                @Html.LabelFor(model => model.TaxOfficeId, htmlAttributes: new { @class = "label required" })
-                                <label class="input">
-                                    @Html.DropDownListFor(model => model.TaxOfficeId, (SelectList)ViewBag.taxoffice, htmlAttributes: new { @placeholder = "Select Tax Offices", @id = "cboSettlementMethod", @tabindex = "5", @class = "select2", @width = "100%", @multiple = "multiple", @data_initvalue = (Model != null && Model.TaxOfficeId != null ? string.Join(",", Model.TaxOfficeId) : "") })
-                                </label>
-                                @Html.ValidationMessageFor(model => model.TaxOfficeId, "", htmlAttributes: new { @class = "help-block" })
-                            </section>
-                            @*<section>
-            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "label" })
-            <label class="checkbox">
-                @Html.CheckBoxFor(model => model.Active.GetValueOrDefault(), htmlAttributes: new { @tabindex = "10" })
-                <i></i> Active
-            </label>
-        </section>*@
-                        </fieldset>
-                                
+                                    <section>
+                                        @Html.LabelFor(model => model.LgaId, htmlAttributes: new { @class = "label required" })
+                                        <label class="input">
+                                            @Html.DropDownListFor(model => model.LgaId, (SelectList)ViewBag.LGAList, "Select Local Government Area", htmlAttributes: new { @tabindex = "1", @id = "cblLGA", @class = "select2", @width = "100%" })
+                                        </label>
+                                        @Html.ValidationMessageFor(model => model.LgaId, "", htmlAttributes: new { @class = "help-block" })
+                                    </section>
+
+                                    @*<section>
+                                            @Html.LabelFor(model => model.TaxOfficeId, htmlAttributes: new { @class = "label required" })
+                                            <label class="input">
+                                                @Html.DropDownListFor(model => model.TaxOfficeId, (SelectList)ViewBag.taxoffice, htmlAttributes: new { @placeholder = "Select Tax Offices", @id = "cboSettlementMethod", @tabindex = "5", @class = "select2", @width = "100%", @multiple = "multiple", @data_initvalue = (Model != null && Model.TaxOfficeId != null ? string.Join(",", Model.TaxOfficeId) : "") })
+                                            </label>
+                                            @Html.ValidationMessageFor(model => model.TaxOfficeId, "", htmlAttributes: new { @class = "help-block" })
+                                        </section>*@
+
+                                </fieldset>
+
                                 <footer>
                                     <button type="submit" class="btn btn-primary" id="btnSave">
                                         Submit
                                     </button>
                                     @*<a id="btnNext" class="btn btn-primary">Next</a>
-                                    <a id="btnBack" class="btn btn-default">
-                                        Back
-                                    </a>*@
+                                        <a id="btnBack" class="btn btn-default">
+                                            Back
+                                        </a>*@
                                     <a id="btnMainBack" href="@Url.Action("Index","Zone")" class="btn btn-default">
                                         Cancel
                                     </a>
@@ -112,5 +106,5 @@
 @*@{ Html.RenderPartial("_ProfileDetailPopup"); Html.RenderPartial("_AssessmentItemDetailPopup"); }*@
 
 @*@section Footer {
-    <script type="text/javascript" src="~/Scripts/jsAssessmentRuleDetails.js"></script>
-}*@
+        <script type="text/javascript" src="~/Scripts/jsAssessmentRuleDetails.js"></script>
+    }*@

@@ -547,10 +547,10 @@ namespace EIRS.Repository
                 };
 
                 //Get Filtered Count
-                int mIntFilteredCount = _db.Database.SqlQuery<int>(sbFilteredCountQuery.ToString(), mObjSqlParameter).FirstOrDefault();
+                //int mIntFilteredCount = _db.Database.SqlQuery<int>(sbFilteredCountQuery.ToString(), mObjSqlParameter).FirstOrDefault();
 
                 dcData["TotalRecords"] = mIntTotalCount;
-                dcData["FilteredRecords"] = mIntFilteredCount;
+                dcData["FilteredRecords"] = mIntTotalCount;
 
                 return dcData;
             }

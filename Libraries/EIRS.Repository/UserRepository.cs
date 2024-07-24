@@ -577,6 +577,39 @@ namespace EIRS.Repository
     {
         ERASEntities _db;
         EIRSEntities _EIRSdb;
+        public IList<DropDownListResult> REP_GetApproverDetList(MST_Users pObjUser, string det)
+        {
+            var vResult = new List<DropDownListResult>();
+            using (_db = new ERASEntities())
+            {
+                switch (det)
+                {
+                    case "1":
+                        vResult = (from usrs in _db.MST_Users
+                                   where usrs.Active == true && usrs.UserTypeID == pObjUser.UserTypeID && usrs.TaxOfficeID == pObjUser.TaxOfficeID && usrs.IsTOManager == true
+                                   select new DropDownListResult()
+                                   {
+                                       id = usrs.UserID,
+                                       text = usrs.ContactName
+                                   }).ToList();
+                        break;
+                    case "2":
+                        vResult = (from usrs in _db.MST_Users
+                                   where usrs.Active == true && usrs.UserTypeID == pObjUser.UserTypeID && usrs.IsDirector == true
+                                   select new DropDownListResult()
+                                   {
+                                       id = usrs.UserID,
+                                       text = usrs.ContactName
+                                   }).ToList();
+                        break;
+                    default:
+                        break;
+                }
+
+
+                return vResult;
+            }
+        }
 
         public FuncResponse REP_InsertUpdateUser(MST_Users pObjUser)
         {

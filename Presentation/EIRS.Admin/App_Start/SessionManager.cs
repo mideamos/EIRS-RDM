@@ -120,6 +120,7 @@ namespace EIRS.Admin
     public class TaxOfficeAddress
     {
 
+        public int ZoneID { get; set; }
         public int RowID { get; set; }
 
         public int AddressTypeID { get; set; }

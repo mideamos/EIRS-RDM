@@ -9,7 +9,13 @@ namespace EIRS.Repository
     public class TaxOfficeRepository : ITaxOfficeRepository
     {
         EIRSEntities _db;
-
+        public usp_GetTaxOfficeListNew_Result REP_GetTaxOfficeDetailsNew(Tax_Offices pObjTaxOffice)
+        {
+            using (_db = new EIRSEntities())
+            {
+                return _db.usp_GetTaxOfficeListNew(pObjTaxOffice.TaxOfficeName, pObjTaxOffice.TaxOfficeID, pObjTaxOffice.AddressTypeID, pObjTaxOffice.TaxOfficeIds, pObjTaxOffice.intStatus, pObjTaxOffice.IncludeTaxOfficeIds, pObjTaxOffice.ExcludeTaxOfficeIds).FirstOrDefault();
+            }
+        }
         public FuncResponse REP_InsertUpdateTaxOffice(Tax_Offices pObjTaxOffice)
         {
             using (_db = new EIRSEntities())

@@ -1,4 +1,4 @@
-﻿@model EIRS.Admin.Models.Zone
+﻿@model EIRS.BOL.spZoneDetailNew_Result
 
 @{
     ViewBag.Title = "Zone Details";
@@ -40,12 +40,13 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label control-label-static">Zone Code</label>
                                         <div class="col-md-10 form-control-static">
-                                            @Model.ZoneCode
+                                            @Model.ZoneId
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label control-label-static">Status</label>
                                         <div class="col-md-10 form-control-static">
+                                           
                                             @Model.ActiveText
                                         </div>
                                     </div>
@@ -53,19 +54,17 @@
                                 <div class="form-horizontal">
                                     <fieldset>
                                         <legend>LGA</legend>
-                                        @foreach (var item in Model.LgaNames)
-                                        {
+                                        
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label control-label-static">LGA Name</label>
                                                 <div class="col-md-10 form-control-static">
-                                                    @item.LgaName
+                                                    @Model.LGAName
                                                 </div>
                                             </div>
-                                        }
                                     </fieldset>
 
                                 </div>
-                                <div class="form-horizontal">
+                                @*<div class="form-horizontal">
                                     <fieldset>
                                         <legend>Tax Office</legend>
                                         @foreach (var item in Model.TaxOffices)
@@ -79,7 +78,7 @@
                                         }
                                     </fieldset>
 
-                                </div>
+                                </div>*@
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-12">

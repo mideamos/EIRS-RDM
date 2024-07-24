@@ -23,7 +23,10 @@ namespace EIRS.BLL
         {
             return _TaxOfficeRepository.REP_InsertUpdateTaxOffice(pObjTaxOffice);
         }
-
+        public usp_GetTaxOfficeListNew_Result BL_GetTaxOfficeNewDetails(Tax_Offices pObjTaxOffice)
+        {
+            return _TaxOfficeRepository.REP_GetTaxOfficeDetailsNew(pObjTaxOffice);
+        }
         public usp_GetTaxOfficeList_Result BL_GetTaxOfficeDetails(Tax_Offices pObjTaxOffice)
         {
             return _TaxOfficeRepository.REP_GetTaxOfficeDetails(pObjTaxOffice);

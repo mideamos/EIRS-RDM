@@ -23,6 +23,10 @@ namespace EIRS.BLL
         {
             return _UserRepository.REP_InsertUpdateUser(pObjUser);
         }
+        public IList<DropDownListResult> REP_GetApproverDetList(MST_Users pObjUser, string det)
+        {
+            return _UserRepository.REP_GetApproverDetList(pObjUser, det);
+        }
 
         public usp_GetUserList_Result BL_GetUserDetails(MST_Users pObjUser)
         {

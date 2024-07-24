@@ -6,6 +6,8 @@ namespace EIRS.Repository
 {
     public interface IUserRepository
     {
+        IList<DropDownListResult> REP_GetApproverDetList(MST_Users pObjUser, string det);
+
         FuncResponse REP_ChangePassword(MST_Users pObjUser);
         FuncResponse<MST_Users> REP_CheckUserLoginDetails(MST_Users pObjUser);
         FuncResponse REP_ForgotPassword(MST_Users pObjUser);

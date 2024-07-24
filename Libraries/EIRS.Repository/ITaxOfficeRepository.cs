@@ -6,6 +6,8 @@ namespace EIRS.Repository
 {
     public interface ITaxOfficeRepository
     {
+        usp_GetTaxOfficeListNew_Result REP_GetTaxOfficeDetailsNew(Tax_Offices pObjTaxOffice);
+
         usp_GetTaxOfficeList_Result REP_GetTaxOfficeDetails(Tax_Offices pObjTaxOffice);
         IList<DropDownListResult> REP_GetTaxOfficeDropDownList(Tax_Offices pObjTaxOffice);
         IList<usp_GetTaxOfficeList_Result> REP_GetTaxOfficeList(Tax_Offices pObjTaxOffice);

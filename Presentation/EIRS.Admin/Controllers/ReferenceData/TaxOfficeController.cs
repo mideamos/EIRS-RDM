@@ -1,4 +1,6 @@
-﻿using EIRS.BLL;
+﻿
+
+using EIRS.BLL;
 using EIRS.BOL;
 using EIRS.Common;
 using EIRS.Models;
@@ -8,11 +10,13 @@ using System.Web.Mvc;
 using Vereyon.Web;
 using System.Linq;
 using Elmah;
+using EIRS.Admin.Models;
 
 namespace EIRS.Admin.Controllers
 {
     public class TaxOfficeController : BaseController
     {
+        EIRSContext _db;
         public ActionResult List()
         {
             Tax_Offices mObjTaxOffice = new Tax_Offices()
@@ -36,11 +40,32 @@ namespace EIRS.Admin.Controllers
 
             ViewBag.TaxOfficeAddressList = SessionManager.lstTaxOfficeAddress;
 
+            // UI_FillZoneDropDown(new )
+
+            REP_GetZoneDropDownList();
+
             UI_FillApproverDropDown(new MST_Users() { intStatus = 1, UserTypeID = (int)EnumList.UserType.Staff, TaxOfficeID = TaxOfficeID });
+            UI_FillDiDirectorDropDown(new MST_Users() { intStatus = 1, UserTypeID = (int)EnumList.UserType.Staff, TaxOfficeID = TaxOfficeID });
+            UI_FillDiDropDown(new MST_Users() { intStatus = 1, UserTypeID = (int)EnumList.UserType.Staff, TaxOfficeID = TaxOfficeID });
 
             UI_FillAddressTypeDropDown(new Address_Types() { intStatus = 1, IncludeAddressTypeIds = AddressTypeID.ToString() });
         }
 
+        public IList<DropDownListResult> REP_GetZoneDropDownList()
+        {
+            using (_db = new EIRSContext())
+            {
+                var vResult = (from nat in _db.Zone
+                               select new DropDownListResult()
+                               {
+                                   id = nat.ZoneId,
+                                   text = nat.ZoneName
+                               }).ToList();
+
+                ViewBag.Zone = new SelectList(vResult, "id", "text");
+                return vResult;
+            }
+        }
         public ActionResult Add()
         {
             SessionManager.lstTaxOfficeAddress = new List<TaxOfficeAddress>();
@@ -71,6 +96,7 @@ namespace EIRS.Admin.Controllers
                     Approver3 = pObjTaxOfficeModel.Approver3,
                     AddressTypeID = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.AddressTypeID : 0,
                     BuildingID = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.BuildingID : 0,
+                    ZoneId = pObjTaxOfficeModel.Zone,
                     Active = true,
                     CreatedBy = SessionManager.SystemUserID,
                     CreatedDate = CommUtil.GetCurrentDateTime()
@@ -113,7 +139,7 @@ namespace EIRS.Admin.Controllers
                     intStatus = 2
                 };
 
-                usp_GetTaxOfficeList_Result mObjTaxOfficeData = new BLTaxOffice().BL_GetTaxOfficeDetails(mObjTaxOffice);
+                usp_GetTaxOfficeListNew_Result mObjTaxOfficeData = new BLTaxOffice().BL_GetTaxOfficeNewDetails(mObjTaxOffice);
 
                 if (mObjTaxOfficeData != null)
                 {
@@ -125,6 +151,7 @@ namespace EIRS.Admin.Controllers
                         Approver2 = mObjTaxOfficeData.Approver2.GetValueOrDefault(),
                         Approver3 = mObjTaxOfficeData.Approver3.GetValueOrDefault(),
                         Active = mObjTaxOfficeData.Active.GetValueOrDefault(),
+                        Zone = mObjTaxOfficeData.ZoneID.GetValueOrDefault()
                     };
 
                     SessionManager.lstTaxOfficeAddress = new List<TaxOfficeAddress>();
@@ -137,6 +164,7 @@ namespace EIRS.Admin.Controllers
                             AddressTypeID = mObjTaxOfficeData.AddressTypeID.GetValueOrDefault(),
                             AddressTypeName = mObjTaxOfficeData.AddressTypeName,
                             BuildingID = mObjTaxOfficeData.BuildingID.GetValueOrDefault(),
+                            ZoneID = mObjTaxOfficeData.ZoneID.GetValueOrDefault(),
                             BuildingName = mObjTaxOfficeData.BuildingName,
                             BuildingRIN = mObjTaxOfficeData.BuildingRIN,
                             intTrack = EnumList.Track.EXISTING
@@ -183,8 +211,11 @@ namespace EIRS.Admin.Controllers
                     Approver1 = pObjTaxOfficeModel.Approver1,
                     Approver2 = pObjTaxOfficeModel.Approver2,
                     Approver3 = pObjTaxOfficeModel.Approver3,
+                    OfficeManagerID = pObjTaxOfficeModel.OfficeManager,
+                    IncomeDirector = pObjTaxOfficeModel.IncomeDirector,
                     AddressTypeID = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.AddressTypeID : 0,
                     BuildingID = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.BuildingID : 0,
+                    ZoneId = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.ZoneID : 0,
                     Active = pObjTaxOfficeModel.Active,
                     ModifiedBy = SessionManager.SystemUserID,
                     ModifiedDate = CommUtil.GetCurrentDateTime()
@@ -227,7 +258,7 @@ namespace EIRS.Admin.Controllers
                     intStatus = 2
                 };
 
-                usp_GetTaxOfficeList_Result mObjTaxOfficeData = new BLTaxOffice().BL_GetTaxOfficeDetails(mObjTaxOffice);
+                usp_GetTaxOfficeListNew_Result mObjTaxOfficeData = new BLTaxOffice().BL_GetTaxOfficeNewDetails(mObjTaxOffice);
 
                 if (mObjTaxOfficeData != null)
                 {
@@ -235,6 +266,7 @@ namespace EIRS.Admin.Controllers
                     {
                         TaxOfficeID = mObjTaxOfficeData.TaxOfficeID.GetValueOrDefault(),
                         TaxOfficeName = mObjTaxOfficeData.TaxOfficeName,
+                        ZoneName = mObjTaxOfficeData.ZoneName,
                         ActiveText = mObjTaxOfficeData.ActiveText
                     };
 
@@ -250,6 +282,7 @@ namespace EIRS.Admin.Controllers
                             BuildingID = mObjTaxOfficeData.BuildingID.GetValueOrDefault(),
                             BuildingName = mObjTaxOfficeData.BuildingName,
                             BuildingRIN = mObjTaxOfficeData.BuildingRIN,
+
                             intTrack = EnumList.Track.EXISTING
                         };
 
@@ -358,13 +391,13 @@ namespace EIRS.Admin.Controllers
             Dictionary<string, object> dcResponse = new Dictionary<string, object>();
             IList<TaxOfficeAddress> lstTaxOfficeAddress = SessionManager.lstTaxOfficeAddress != null ? SessionManager.lstTaxOfficeAddress : new List<TaxOfficeAddress>();
             TaxOfficeAddress mObjTaxOfficeAddress = lstTaxOfficeAddress.Where(t => t.intTrack != EnumList.Track.DELETE).Count() > 0 ? lstTaxOfficeAddress.Where(t => t.intTrack != EnumList.Track.DELETE).FirstOrDefault() : new TaxOfficeAddress();
-            var building = SessionManager.lstBuilding.FirstOrDefault(o=>o.BuildingID == pObjTaxOfficeAddress.BuildingID);
+
             mObjTaxOfficeAddress.RowID = lstTaxOfficeAddress.Count + 1;
             mObjTaxOfficeAddress.AddressTypeID = pObjTaxOfficeAddress.AddressTypeID;
             mObjTaxOfficeAddress.AddressTypeName = pObjTaxOfficeAddress.AddressTypeName;
             mObjTaxOfficeAddress.BuildingID = pObjTaxOfficeAddress.BuildingID;
-            mObjTaxOfficeAddress.BuildingName = building!=null? building.BuildingName:"";
-            mObjTaxOfficeAddress.BuildingRIN = building != null ? building.BuildingRIN:"";
+            mObjTaxOfficeAddress.BuildingName = pObjTaxOfficeAddress.BuildingName;
+            mObjTaxOfficeAddress.BuildingRIN = pObjTaxOfficeAddress.BuildingRIN;
             mObjTaxOfficeAddress.intTrack = EnumList.Track.UPDATE;
 
             if (lstTaxOfficeAddress.Where(t => t.intTrack != EnumList.Track.DELETE).Count() == 0)
