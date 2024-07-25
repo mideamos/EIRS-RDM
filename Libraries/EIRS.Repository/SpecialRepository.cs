@@ -488,18 +488,18 @@ namespace EIRS.Repository
 
                 SqlParameter[] mObjSqlParameter = new SqlParameter[]
                 {
-                    new SqlParameter("@SpecialRIN", pObjSpecial.SpecialRIN),
-                    new SqlParameter("@SpecialTaxPayerName", pObjSpecial.SpecialTaxPayerName),
-                    new SqlParameter("@TIN", pObjSpecial.TIN),
-                    new SqlParameter("@TaxOfficeName", pObjSpecial.TaxOfficeName),
-                    new SqlParameter("@TaxPayerTypeName", pObjSpecial.TaxPayerTypeName),
-                    new SqlParameter("@ContactName", pObjSpecial.ContactName),
-                    new SqlParameter("@ContactEmail", pObjSpecial.ContactEmail),
-                    new SqlParameter("@ContactNumber", pObjSpecial.ContactNumber),
-                    new SqlParameter("@Description",pObjSpecial.Description),
-                    new SqlParameter("@NotificationMethodName", pObjSpecial.NotificationMethodName),
-                    new SqlParameter("@ActiveText", pObjSpecial.ActiveText),
-                    new SqlParameter("@MainFilter", pObjSpecial.MainFilter)
+                    new SqlParameter("@SpecialRIN", pObjSpecial.SpecialRIN??(object) DBNull.Value),
+                    new SqlParameter("@SpecialTaxPayerName", pObjSpecial.SpecialTaxPayerName ??(object) DBNull.Value),
+                    new SqlParameter("@TIN", pObjSpecial.TIN ??(object) DBNull.Value),
+                    new SqlParameter("@TaxOfficeName", pObjSpecial.TaxOfficeName ??(object) DBNull.Value),
+                    new SqlParameter("@TaxPayerTypeName", pObjSpecial.TaxPayerTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@ContactName", pObjSpecial.ContactName ??(object) DBNull.Value),
+                    new SqlParameter("@ContactEmail", pObjSpecial.ContactEmail ??(object) DBNull.Value),
+                    new SqlParameter("@ContactNumber", pObjSpecial.ContactNumber ??(object) DBNull.Value),
+                    new SqlParameter("@Description",pObjSpecial.Description ??(object) DBNull.Value),
+                    new SqlParameter("@NotificationMethodName", pObjSpecial.NotificationMethodName ??(object) DBNull.Value),
+                    new SqlParameter("@ActiveText", pObjSpecial.ActiveText ??(object) DBNull.Value),
+                    new SqlParameter("@MainFilter", pObjSpecial.MainFilter ??(object) DBNull.Value)
                 };
 
                 //Get Filtered Count

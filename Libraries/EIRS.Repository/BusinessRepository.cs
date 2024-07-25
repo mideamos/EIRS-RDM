@@ -389,18 +389,18 @@ namespace EIRS.Repository
 
                 SqlParameter[] mObjSqlParameter = new SqlParameter[]
                 {
-                    new SqlParameter("@BusinessRIN",pObjBusiness.BusinessRIN),
-                    new SqlParameter("@BusinessName",pObjBusiness.BusinessName),
-                    new SqlParameter("@BusinessTypeName",pObjBusiness.BusinessTypeName),
-                    new SqlParameter("@LGAName",pObjBusiness.LGAName),
-                    new SqlParameter("@BusinessCategoryName",pObjBusiness.BusinessCategoryName),
-                    new SqlParameter("@BusinessSectorName",pObjBusiness.BusinessSectorName),
-                    new SqlParameter("@BusinessSubSectorName",pObjBusiness.BusinessSubSectorName),
-                    new SqlParameter("@BusinessStructureName",pObjBusiness.BusinessStructureName),
-                    new SqlParameter("@BusinessOperationName",pObjBusiness.BusinessOperationName),
-                    new SqlParameter("@SizeName",pObjBusiness.SizeName),
-                    new SqlParameter("@ActiveText",pObjBusiness.ActiveText),
-                    new SqlParameter("@MainFilter", pObjBusiness.MainFilter)
+                    new SqlParameter("@BusinessRIN",pObjBusiness.BusinessRIN ?? (object)DBNull.Value),
+                    new SqlParameter("@BusinessName",pObjBusiness.BusinessName ??(object) DBNull.Value),
+                    new SqlParameter("@BusinessTypeName",pObjBusiness.BusinessTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@LGAName",pObjBusiness.LGAName ??(object) DBNull.Value),
+                    new SqlParameter("@BusinessCategoryName",pObjBusiness.BusinessCategoryName ??(object) DBNull.Value),
+                    new SqlParameter("@BusinessSectorName",pObjBusiness.BusinessSectorName ??(object) DBNull.Value),
+                    new SqlParameter("@BusinessSubSectorName",pObjBusiness.BusinessSubSectorName ??(object) DBNull.Value),
+                    new SqlParameter("@BusinessStructureName",pObjBusiness.BusinessStructureName ??(object) DBNull.Value),
+                    new SqlParameter("@BusinessOperationName",pObjBusiness.BusinessOperationName ??(object) DBNull.Value),
+                    new SqlParameter("@SizeName",pObjBusiness.SizeName ??(object) DBNull.Value),
+                    new SqlParameter("@ActiveText",pObjBusiness.ActiveText ??(object) DBNull.Value),
+                    new SqlParameter("@MainFilter", pObjBusiness.MainFilter ??(object) DBNull.Value)
                 };
 
                 //Get Filtered Count

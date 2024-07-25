@@ -697,18 +697,18 @@ namespace EIRS.Repository
 
                 SqlParameter[] mObjSqlParameter = new SqlParameter[]
                 {
-                    new SqlParameter("@GovernmentRIN", pObjGovernment.GovernmentRIN),
-                    new SqlParameter("@GovernmentName", pObjGovernment.GovernmentName),
-                    new SqlParameter("@TIN", pObjGovernment.TIN),
-                    new SqlParameter("@GovernmentTypeName", pObjGovernment.GovernmentTypeName),
-                    new SqlParameter("@TaxOfficeName", pObjGovernment.TaxOfficeName),
-                    new SqlParameter("@TaxPayerTypeName", pObjGovernment.TaxPayerTypeName),
-                    new SqlParameter("@ContactName", pObjGovernment.ContactName),
-                    new SqlParameter("@ContactEmail", pObjGovernment.ContactEmail),
-                    new SqlParameter("@ContactNumber", pObjGovernment.ContactNumber),
-                    new SqlParameter("@NotificationMethodName", pObjGovernment.NotificationMethodName),
-                    new SqlParameter("@ActiveText", pObjGovernment.ActiveText),
-                    new SqlParameter("@MainFilter", pObjGovernment.MainFilter)
+                    new SqlParameter("@GovernmentRIN", pObjGovernment.GovernmentRIN??(object) DBNull.Value),
+                    new SqlParameter("@GovernmentName", pObjGovernment.GovernmentName ??(object) DBNull.Value),
+                    new SqlParameter("@TIN", pObjGovernment.TIN ??(object) DBNull.Value),
+                    new SqlParameter("@GovernmentTypeName", pObjGovernment.GovernmentTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@TaxOfficeName", pObjGovernment.TaxOfficeName ??(object) DBNull.Value),
+                    new SqlParameter("@TaxPayerTypeName", pObjGovernment.TaxPayerTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@ContactName", pObjGovernment.ContactName ??(object) DBNull.Value),
+                    new SqlParameter("@ContactEmail", pObjGovernment.ContactEmail ??(object) DBNull.Value),
+                    new SqlParameter("@ContactNumber", pObjGovernment.ContactNumber ??(object) DBNull.Value),
+                    new SqlParameter("@NotificationMethodName", pObjGovernment.NotificationMethodName ??(object) DBNull.Value),
+                    new SqlParameter("@ActiveText", pObjGovernment.ActiveText ??(object) DBNull.Value),
+                    new SqlParameter("@MainFilter", pObjGovernment.MainFilter ??(object) DBNull.Value)
                 };
 
                 //Get Filtered Count

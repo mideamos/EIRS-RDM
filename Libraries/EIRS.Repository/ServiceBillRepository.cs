@@ -532,25 +532,25 @@ namespace EIRS.Repository
 
                 SqlParameter[] mObjSqlParameter = new SqlParameter[]
                 {
-                    new SqlParameter("@MainFilter",pObjServiceBill.MainFilter),
-                    new SqlParameter("@ServiceBillRefNo",pObjServiceBill.ServiceBillRefNo),
-                    new SqlParameter("@ServiceBillDate",pObjServiceBill.strServiceBillDate),
-                    new SqlParameter("@TaxPayerTypeName",pObjServiceBill.TaxPayerTypeName),
-                    new SqlParameter("@TaxPayerRIN",pObjServiceBill.TaxPayerRIN),
-                    new SqlParameter("@TaxPayerName",pObjServiceBill.TaxPayerName),
-                    new SqlParameter("@ServiceBillAmount",pObjServiceBill.strServiceBillAmount),
-                    new SqlParameter("@SettlementDueDate",pObjServiceBill.strSettlementDueDate),
-                    new SqlParameter("@SettlementDate",pObjServiceBill.strSettlementDate),
-                    new SqlParameter("@SettlementStatus",pObjServiceBill.SettlementStatusName),
-                    new SqlParameter("@ServiceBillNotes",pObjServiceBill.Notes),
-                    new SqlParameter("@ActiveText",pObjServiceBill.ActiveText),
+                    new SqlParameter("@MainFilter",pObjServiceBill.MainFilter??(object) DBNull.Value),
+                    new SqlParameter("@ServiceBillRefNo",pObjServiceBill.ServiceBillRefNo ??(object) DBNull.Value),
+                    new SqlParameter("@ServiceBillDate",pObjServiceBill.strServiceBillDate ??(object) DBNull.Value),
+                    new SqlParameter("@TaxPayerTypeName",pObjServiceBill.TaxPayerTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@TaxPayerRIN",pObjServiceBill.TaxPayerRIN ??(object) DBNull.Value),
+                    new SqlParameter("@TaxPayerName",pObjServiceBill.TaxPayerName ??(object) DBNull.Value),
+                    new SqlParameter("@ServiceBillAmount",pObjServiceBill.strServiceBillAmount ??(object) DBNull.Value),
+                    new SqlParameter("@SettlementDueDate",pObjServiceBill.strSettlementDueDate ??(object) DBNull.Value),
+                    new SqlParameter("@SettlementDate",pObjServiceBill.strSettlementDate ??(object) DBNull.Value),
+                    new SqlParameter("@SettlementStatus",pObjServiceBill.SettlementStatusName ??(object) DBNull.Value),
+                    new SqlParameter("@ServiceBillNotes",pObjServiceBill.Notes ??(object) DBNull.Value),
+                    new SqlParameter("@ActiveText",pObjServiceBill.ActiveText ??(object) DBNull.Value)
                 };
 
                 //Get Filtered Count
-                //int mIntFilteredCount = _db.Database.SqlQuery<int>(sbFilteredCountQuery.ToString(), mObjSqlParameter).FirstOrDefault();
+                int mIntFilteredCount = _db.Database.SqlQuery<int>(sbFilteredCountQuery.ToString(), mObjSqlParameter).FirstOrDefault();
 
                 dcData["TotalRecords"] = mIntTotalCount;
-                dcData["FilteredRecords"] = mIntTotalCount;
+                dcData["FilteredRecords"] = mIntFilteredCount;
 
                 return dcData;
             }

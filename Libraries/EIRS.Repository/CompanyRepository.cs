@@ -740,19 +740,19 @@ namespace EIRS.Repository
 
                 SqlParameter[] mObjSqlParameter = new SqlParameter[]
                 {
-                    new SqlParameter("@CompanyName", pObjCompany.CompanyName),
-                    new SqlParameter("@TIN", pObjCompany.TIN),
-                    new SqlParameter("@CompanyRIN", pObjCompany.CompanyRIN),
-                    new SqlParameter("@MobileNumber1", pObjCompany.MobileNumber1),
-                    new SqlParameter("@MobileNumber2", pObjCompany.MobileNumber2),
-                    new SqlParameter("@EmailAddress1", pObjCompany.EmailAddress1),
-                    new SqlParameter("@EmailAddress2", pObjCompany.EmailAddress2),
-                    new SqlParameter("@TaxOfficeName", pObjCompany.TaxOfficeName),
-                    new SqlParameter("@TaxPayerTypeName", pObjCompany.TaxPayerTypeName),
-                    new SqlParameter("@EconomicActivitiesName", pObjCompany.EconomicActivitiesName),
-                    new SqlParameter("@NotificationMethodName", pObjCompany.NotificationMethodName),
-                    new SqlParameter("@ActiveText", pObjCompany.ActiveText),
-                    new SqlParameter("@MainFilter", pObjCompany.MainFilter)
+                    new SqlParameter("@CompanyName", pObjCompany.CompanyName ?? (object)DBNull.Value),
+                    new SqlParameter("@TIN", pObjCompany.TIN ?? (object)DBNull.Value),
+                    new SqlParameter("@CompanyRIN", pObjCompany.CompanyRIN ??(object) DBNull.Value),
+                    new SqlParameter("@MobileNumber1", pObjCompany.MobileNumber1 ??(object) DBNull.Value),
+                    new SqlParameter("@MobileNumber2", pObjCompany.MobileNumber2 ??(object) DBNull.Value),
+                    new SqlParameter("@EmailAddress1", pObjCompany.EmailAddress1 ??(object) DBNull.Value),
+                    new SqlParameter("@EmailAddress2", pObjCompany.EmailAddress2 ??(object) DBNull.Value),
+                    new SqlParameter("@TaxOfficeName", pObjCompany.TaxOfficeName ??(object) DBNull.Value),
+                    new SqlParameter("@TaxPayerTypeName", pObjCompany.TaxPayerTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@EconomicActivitiesName", pObjCompany.EconomicActivitiesName ??(object) DBNull.Value),
+                    new SqlParameter("@NotificationMethodName", pObjCompany.NotificationMethodName ??(object) DBNull.Value),
+                    new SqlParameter("@ActiveText", pObjCompany.ActiveText ??(object) DBNull.Value),
+                    new SqlParameter("@MainFilter", pObjCompany.MainFilter ?? (object)DBNull.Value)
                 };
 
                 //Get Filtered Count
@@ -760,7 +760,6 @@ namespace EIRS.Repository
 
                 dcData["TotalRecords"] = mIntTotalCount;
                 dcData["FilteredRecords"] = mIntFilteredCount;
-
                 return dcData;
             }
         }

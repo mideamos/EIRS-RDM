@@ -317,18 +317,18 @@ namespace EIRS.Repository
 
                 SqlParameter[] mObjSqlParameter = new SqlParameter[]
                 {
-                    new SqlParameter("@MainFilter",pObjVehicle.MainFilter),
-                    new SqlParameter("@VehicleRIN",pObjVehicle.VehicleRIN),
-                    new SqlParameter("@VehicleRegNumber",pObjVehicle.VehicleRegNumber),
-                    new SqlParameter("@VIN",pObjVehicle.VIN),
-                    new SqlParameter("@VehicleTypeName",pObjVehicle.VehicleTypeName),
-                    new SqlParameter("@VehicleSubTypeName",pObjVehicle.VehicleSubTypeName),
-                    new SqlParameter("@LGAName",pObjVehicle.LGAName),
-                    new SqlParameter("@VehiclePurposeName",pObjVehicle.VehiclePurposeName),
-                    new SqlParameter("@VehicleFunctionName",pObjVehicle.VehicleFunctionName),
-                    new SqlParameter("@VehicleOwnershipName",pObjVehicle.VehicleOwnershipName),
-                    new SqlParameter("@VehicleDescription",pObjVehicle.VehicleDescription),
-                    new SqlParameter("@ActiveText",pObjVehicle.ActiveText)
+                    new SqlParameter("@MainFilter",pObjVehicle.MainFilter??(object) DBNull.Value),
+                    new SqlParameter("@VehicleRIN",pObjVehicle.VehicleRIN ??(object) DBNull.Value),
+                    new SqlParameter("@VehicleRegNumber",pObjVehicle.VehicleRegNumber ??(object) DBNull.Value),
+                    new SqlParameter("@VIN",pObjVehicle.VIN ??(object) DBNull.Value),
+                    new SqlParameter("@VehicleTypeName",pObjVehicle.VehicleTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@VehicleSubTypeName",pObjVehicle.VehicleSubTypeName ??(object) DBNull.Value),
+                    new SqlParameter("@LGAName",pObjVehicle.LGAName ??(object) DBNull.Value),
+                    new SqlParameter("@VehiclePurposeName",pObjVehicle.VehiclePurposeName ??(object) DBNull.Value),
+                    new SqlParameter("@VehicleFunctionName",pObjVehicle.VehicleFunctionName ??(object) DBNull.Value),
+                    new SqlParameter("@VehicleOwnershipName",pObjVehicle.VehicleOwnershipName ??(object) DBNull.Value),
+                    new SqlParameter("@VehicleDescription",pObjVehicle.VehicleDescription ??(object) DBNull.Value),
+                    new SqlParameter("@ActiveText",pObjVehicle.ActiveText ??(object) DBNull.Value)
                 };
 
                 //Get Filtered Count
