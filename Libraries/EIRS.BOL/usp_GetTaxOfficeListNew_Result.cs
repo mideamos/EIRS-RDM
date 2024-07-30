@@ -18,7 +18,6 @@ namespace EIRS.BOL
         public Nullable<int> Approver1 { get; set; }
         public string Approver1Name { get; set; }
         public Nullable<int> Approver2 { get; set; }
-        public Nullable<int> PayeApprover { get; set; }
         public string Approver2Name { get; set; }
         public Nullable<int> Approver3 { get; set; }
         public string Approver3Name { get; set; }
