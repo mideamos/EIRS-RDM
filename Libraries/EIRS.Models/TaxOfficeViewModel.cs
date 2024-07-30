@@ -11,9 +11,13 @@ namespace EIRS.Models
         [MaxLength(250,ErrorMessage = "Only 250 characters allowed.")]
         public string TaxOfficeName { get; set; }
 
-        [Display(Name = "Approver 1")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Select Approver 1")]
-        public int Approver1 { get; set; }
+        [Display(Name = "DA-Approver")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Select DA Approver")]
+        public int DA_Approver1 { get; set; }
+        
+        [Display(Name = "PAYE_Approver 1")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Select PAYE Approver")]
+        public int PAYE_Approver1 { get; set; }
         [Display(Name = "Zone")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Select Zone")]
         public int Zone { get; set; }

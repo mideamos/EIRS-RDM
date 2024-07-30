@@ -53,7 +53,7 @@
                                                 Select Zone
                                             </b>
                                         </label>
-                                        @Html.ValidationMessageFor(model => model.Approver1, "", htmlAttributes: new { @class = "help-block" })
+                                        @Html.ValidationMessageFor(model => model.Zone, "", htmlAttributes: new { @class = "help-block" })
                                     </section>
                                     <section>
                                         @Html.LabelFor(model => model.TaxOfficeName, htmlAttributes: new { @class = "label required" })
@@ -68,16 +68,28 @@
                                         @Html.ValidationMessageFor(model => model.TaxOfficeName, "", htmlAttributes: new { @class = "help-block" })
                                     </section>
                                     <section>
-                                        @Html.LabelFor(model => model.Approver1, htmlAttributes: new { @class = "label required" })
+                                        @Html.LabelFor(model => model.DA_Approver1, htmlAttributes: new { @class = "label required" })
                                         <label class="input">
                                             <i class="icon-append fa fa-question-circle"></i>
-                                            @Html.DropDownListFor(model => model.Approver1, (SelectList)ViewBag.UserList, "Select Approver 1", htmlAttributes: new { @tabindex = "2", @placeholder = "Select Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover1" })
+                                            @Html.DropDownListFor(model => model.DA_Approver1, (SelectList)ViewBag.UserList, "Select DA Approver 1", htmlAttributes: new { @tabindex = "2", @placeholder = "Select Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover1" })
                                             <b class="tooltip tooltip-top-right">
                                                 <i class="fa fa-warning txt-color-teal"></i>
                                                 Select Approver 1 for eTCC
                                             </b>
                                         </label>
-                                        @Html.ValidationMessageFor(model => model.Approver1, "", htmlAttributes: new { @class = "help-block" })
+                                        @Html.ValidationMessageFor(model => model.DA_Approver1, "", htmlAttributes: new { @class = "help-block" })
+                                    </section>
+                                    <section>
+                                        @Html.LabelFor(model => model.PAYE_Approver1, htmlAttributes: new { @class = "label required" })
+                                        <label class="input">
+                                            <i class="icon-append fa fa-question-circle"></i>
+                                            @Html.DropDownListFor(model => model.PAYE_Approver1, (SelectList)ViewBag.UserList, "Select PAYE Approver 1", htmlAttributes: new { @tabindex = "2", @placeholder = "Select Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover1" })
+                                            <b class="tooltip tooltip-top-right">
+                                                <i class="fa fa-warning txt-color-teal"></i>
+                                                Select Approver 1 for eTCC
+                                            </b>
+                                        </label>
+                                        @Html.ValidationMessageFor(model => model.PAYE_Approver1, "", htmlAttributes: new { @class = "help-block" })
                                     </section>
                                     <section>
                                         @Html.LabelFor(model => model.Approver2, htmlAttributes: new { @class = "label required" })
@@ -150,7 +162,8 @@
                                 @Html.ValidationBootstrap()
                                 @Html.HiddenFor(model => model.TaxOfficeID, htmlAttributes: new { @value = Model.TaxOfficeID })
                                 @Html.HiddenFor(model => model.TaxOfficeName, htmlAttributes: new { @id = "hdnTaxOfficeName" })
-                                @Html.HiddenFor(model => model.Approver1, htmlAttributes: new { @id = "hdnApprover1" })
+                                @Html.HiddenFor(model => model.DA_Approver1, htmlAttributes: new { @id = "hdnDAApprover1" })
+                                @Html.HiddenFor(model => model.PAYE_Approver1, htmlAttributes: new { @id = "hdnPayeApprover1" })
                                 @Html.HiddenFor(model => model.Approver2, htmlAttributes: new { @id = "hdnApprover2" })
                                 @Html.HiddenFor(model => model.Approver3, htmlAttributes: new { @id = "hdnApprover3" })
                                 @Html.HiddenFor(model => model.IncomeDirector, htmlAttributes: new { @id = "hdnIncomeDirector" })

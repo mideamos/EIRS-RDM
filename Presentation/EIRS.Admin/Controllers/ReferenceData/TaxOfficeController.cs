@@ -91,7 +91,8 @@ namespace EIRS.Admin.Controllers
                 {
                     TaxOfficeID = 0,
                     TaxOfficeName = pObjTaxOfficeModel.TaxOfficeName.Trim(),
-                    Approver1 = pObjTaxOfficeModel.Approver1,
+                    Approver1 = pObjTaxOfficeModel.DA_Approver1,
+                    PAYE_ApproverID= pObjTaxOfficeModel.PAYE_Approver1,
                     Approver2 = pObjTaxOfficeModel.Approver2,
                     Approver3 = pObjTaxOfficeModel.Approver3,
                     AddressTypeID = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.AddressTypeID : 0,
@@ -147,7 +148,8 @@ namespace EIRS.Admin.Controllers
                     {
                         TaxOfficeID = mObjTaxOfficeData.TaxOfficeID.GetValueOrDefault(),
                         TaxOfficeName = mObjTaxOfficeData.TaxOfficeName,
-                        Approver1 = mObjTaxOfficeData.Approver1.GetValueOrDefault(),
+                        DA_Approver1 = mObjTaxOfficeData.Approver1.GetValueOrDefault(),
+                        PAYE_Approver1 = mObjTaxOfficeData.PayeApprover.GetValueOrDefault(),
                         Approver2 = mObjTaxOfficeData.Approver2.GetValueOrDefault(),
                         Approver3 = mObjTaxOfficeData.Approver3.GetValueOrDefault(),
                         Active = mObjTaxOfficeData.Active.GetValueOrDefault(),
@@ -208,7 +210,8 @@ namespace EIRS.Admin.Controllers
                 {
                     TaxOfficeID = pObjTaxOfficeModel.TaxOfficeID,
                     TaxOfficeName = pObjTaxOfficeModel.TaxOfficeName.Trim(),
-                    Approver1 = pObjTaxOfficeModel.Approver1,
+                    Approver1 = pObjTaxOfficeModel.DA_Approver1,
+                    PAYE_ApproverID=pObjTaxOfficeModel.PAYE_Approver1,
                     Approver2 = pObjTaxOfficeModel.Approver2,
                     Approver3 = pObjTaxOfficeModel.Approver3,
                     OfficeManagerID = pObjTaxOfficeModel.OfficeManager,
