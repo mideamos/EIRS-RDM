@@ -13,7 +13,10 @@ namespace EIRS.Repository
         {
             using (_db = new EIRSEntities())
             {
-                return _db.usp_GetTaxOfficeListNew(pObjTaxOffice.TaxOfficeName, pObjTaxOffice.TaxOfficeID, pObjTaxOffice.AddressTypeID, pObjTaxOffice.TaxOfficeIds, pObjTaxOffice.intStatus, pObjTaxOffice.IncludeTaxOfficeIds, pObjTaxOffice.ExcludeTaxOfficeIds).FirstOrDefault();
+                var detai = _db.usp_GetTaxOfficeListNew(pObjTaxOffice.TaxOfficeName, pObjTaxOffice.TaxOfficeID, pObjTaxOffice.AddressTypeID, pObjTaxOffice.TaxOfficeIds, pObjTaxOffice.intStatus, pObjTaxOffice.IncludeTaxOfficeIds, pObjTaxOffice.ExcludeTaxOfficeIds).FirstOrDefault();
+                if (detai != null)
+                    detai.PayeApproverId = _db.Tax_Offices.FirstOrDefault(o => o.TaxOfficeID == detai.TaxOfficeID).PAYE_ApproverID;
+                return detai;
             }
         }
         public FuncResponse REP_InsertUpdateTaxOffice(Tax_Offices pObjTaxOffice)
@@ -67,6 +70,7 @@ namespace EIRS.Repository
                 mObjInsertUpdateTaxOffice.Approver1 = pObjTaxOffice.Approver1;
                 mObjInsertUpdateTaxOffice.Approver2 = pObjTaxOffice.Approver2;
                 mObjInsertUpdateTaxOffice.Approver3 = pObjTaxOffice.Approver3;
+                mObjInsertUpdateTaxOffice.PAYE_ApproverID = pObjTaxOffice.PAYE_ApproverID;
                 mObjInsertUpdateTaxOffice.Active = pObjTaxOffice.Active;
 
                 if (pObjTaxOffice.TaxOfficeID == 0)

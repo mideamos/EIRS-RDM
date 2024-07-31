@@ -1,12 +1,12 @@
 ﻿var vBuildingDataTable;
 $(document).ready(function () {
-    $('#btnEditFinalSave').click(function () {
-        if ($("#frmTaxOffice").valid()) {
-            $('#dvUpdateDialog').dialog('open');
-        }
-        return false;
+    //$('#btnEditFinalSave').click(function () {
+    //    if ($("#frmTaxOffice").valid()) {
+    //        $('#dvUpdateDialog').dialog('open');
+    //    }
+    //    return false;
 
-    });
+    //});
 
     $('#dvUpdateDialog').removeClass('hide');
     $('#dvUpdateDialog').dialog({
@@ -57,17 +57,61 @@ $(document).ready(function () {
         }
     });
 
+    //$("#btnNext").click(function () {
+    //    debugger;
+    //    if ($("#frmTaxOfficeInformation").valid()) {
+    //        $("#lblTaxOfficeName").html($("#txtTaxOfficeName").val());
+    //        $("#hdnTaxOfficeName").val($("#txtTaxOfficeName").val());
+    //        $("#hdnApprover1").val($("#cboApprover1").val());
+    //        $("#hdnPayeApprover1").val($("#cboPayeApprover1").val());
+    //        $("#hdnApprover2").val($("#cboApprover2").val());
+    //        $("#hdnIncomeDirector").val($("#cboIncomeDirector").val());
+    //        $("#hdnOfficeManager").val($("#cboOfficeManager").val());
+    //        $("#hdnApprover3").val($("#cboApprover3").val());
+    //        $("#hdnActive").val($("#chkActive").is(":checked"));
+    //        $("#frmTaxOfficeInformation").hide();
+    //        $("#frmTaxOfficeRecordLink").show();
+    //    }
+    //    debugger;
+    //    return false;
+    //});
     $("#btnNext").click(function () {
+        debugger;
+
         if ($("#frmTaxOfficeInformation").valid()) {
-            $("#lblTaxOfficeName").html($("#txtTaxOfficeName").val());
-            $("#hdnTaxOfficeName").val($("#txtTaxOfficeName").val());
-            $("#hdnApprover1").val($("#cboApprover1").val());
-            $("#hdnApprover2").val($("#cboApprover2").val());
-            $("#hdnApprover3").val($("#cboApprover3").val());
-            $("#hdnActive").val($("#chkActive").is(":checked"));
+            var taxOfficeName = $("#txtTaxOfficeName").val();
+            var approver1 = $("#cboApprover1").val();
+            var payeApprover1 = $("#cboPayeApprover1").val();
+            var approver2 = $("#cboApprover2").val();
+            var incomeDirector = $("#cboIncomeDirector").val();
+            var officeManager = $("#cboOfficeManager").val();
+            var approver3 = $("#cboApprover3").val();
+            var isActive = $("#chkActive").is(":checked");
+
+            console.log("Tax Office Name:", taxOfficeName);
+            console.log("Approver 1:", approver1);
+            console.log("Paye Approver 1:", payeApprover1);
+            console.log("Approver 2:", approver2);
+            console.log("Income Director:", incomeDirector);
+            console.log("Office Manager:", officeManager);
+            console.log("Approver 3:", approver3);
+            console.log("Is Active:", isActive);
+
+            $("#lblTaxOfficeName").html(taxOfficeName);
+            $("#hdnTaxOfficeName").val(taxOfficeName);
+            $("#hdnApprover1").val(approver1);
+            $("#hdnPayeApprover1").val(payeApprover1);
+            $("#hdnApprover2").val(approver2);
+            $("#hdnIncomeDirector").val(incomeDirector);
+            $("#hdnOfficeManager").val(officeManager);
+            $("#hdnApprover3").val(approver3);
+            $("#hdnActive").val(isActive);
+
             $("#frmTaxOfficeInformation").hide();
             $("#frmTaxOfficeRecordLink").show();
         }
+
+        debugger;
         return false;
     });
 
@@ -278,11 +322,11 @@ function jsfn_BuildDataTable() {
             { "data": "ActiveText", "orderable": true, "name": "ActiveText" },
             {
                 "data": "", "orderable": false, "name": "Action", "render": function (data, type, Bui) {
-                    
+
                     return '<div class="btn-group">' + '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">' +
                         'Actions  <span class="caret"></span></button><ul class="dropdown-menu" role="menu">'
-                       + '<li><a onclick="javascript:jsfn_AddTaxOfficeAddressII(' + Bui.BuildingID + ')">Select Building</a></li>'
-                      //  + '<li><a onclick="javascript:jsfn_AddTaxOfficeAddress(' + Bui.BuildingID + ',' + Bui.BuildingRIN + ',' + Bui.BuildingName + ')">Select Building</a></li>'
+                        + '<li><a onclick="javascript:jsfn_AddTaxOfficeAddressII(' + Bui.BuildingID + ')">Select Building</a></li>'
+                        //  + '<li><a onclick="javascript:jsfn_AddTaxOfficeAddress(' + Bui.BuildingID + ',' + Bui.BuildingRIN + ',' + Bui.BuildingName + ')">Select Building</a></li>'
                         + '</ul></div>';
                 }
             },

@@ -149,7 +149,7 @@ namespace EIRS.Admin.Controllers
                         TaxOfficeID = mObjTaxOfficeData.TaxOfficeID.GetValueOrDefault(),
                         TaxOfficeName = mObjTaxOfficeData.TaxOfficeName,
                         DA_Approver1 = mObjTaxOfficeData.Approver1.GetValueOrDefault(),
-                        //PAYE_Approver1 = mObjTaxOfficeData..GetValueOrDefault(),
+                        PAYE_Approver1 = mObjTaxOfficeData.PayeApproverId.GetValueOrDefault(),
                         Approver2 = mObjTaxOfficeData.Approver2.GetValueOrDefault(),
                         Approver3 = mObjTaxOfficeData.Approver3.GetValueOrDefault(),
                         Active = mObjTaxOfficeData.Active.GetValueOrDefault(),

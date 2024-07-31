@@ -83,7 +83,7 @@
                                         @Html.LabelFor(model => model.PAYE_Approver1, htmlAttributes: new { @class = "label required" })
                                         <label class="input">
                                             <i class="icon-append fa fa-question-circle"></i>
-                                            @Html.DropDownListFor(model => model.PAYE_Approver1, (SelectList)ViewBag.UserList, "Select PAYE Approver 1", htmlAttributes: new { @tabindex = "2", @placeholder = "Select Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover1" })
+                                            @Html.DropDownListFor(model => model.PAYE_Approver1, (SelectList)ViewBag.UserList, "Select PAYE Approver 1", htmlAttributes: new { @tabindex = "2", @placeholder = "Select PAYE Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboPayeApprover1" })
                                             <b class="tooltip tooltip-top-right">
                                                 <i class="fa fa-warning txt-color-teal"></i>
                                                 Select Approver 1 for eTCC

@@ -48,7 +48,7 @@
                                     @Html.LabelFor(model => model.Zone, htmlAttributes: new { @class = "label required" })
                                     <label class="input">
                                         <i class="icon-append fa fa-question-circle"></i>
-                                        @Html.DropDownListFor(model => model.Zone, (SelectList)ViewBag.Zone, "Select Zone", htmlAttributes: new { @tabindex = "2", @placeholder = "Select Zone", @class = "select2", @width = "100%", @id = "cboZone" })
+                                        @Html.DropDownListFor(model => model.Zone, (SelectList)ViewBag.Zone, "Select Zone", htmlAttributes: new { @tabindex = "1", @placeholder = "Select Zone", @class = "select2", @width = "100%", @id = "cboZone" })
                                         <b class="tooltip tooltip-top-right">
                                             <i class="fa fa-warning txt-color-teal"></i>
                                             Select Zone
@@ -60,7 +60,7 @@
                                     @Html.LabelFor(model => model.TaxOfficeName, htmlAttributes: new { @class = "label required" })
                                     <label class="input">
                                         <i class="icon-append fa fa-question-circle"></i>
-                                        @Html.TextBoxFor(model => model.TaxOfficeName, htmlAttributes: new { @tabindex = "1", @placeholder = "Enter tax office name", @id = "txtTaxOfficeName" })
+                                        @Html.TextBoxFor(model => model.TaxOfficeName, htmlAttributes: new { @tabindex = "2", @placeholder = "Enter tax office name", @id = "txtTaxOfficeName" })
                                         <b class="tooltip tooltip-top-right">
                                             <i class="fa fa-warning txt-color-teal"></i>
                                             Enter tax office name
@@ -72,7 +72,7 @@
                                     @Html.LabelFor(model => model.DA_Approver1, htmlAttributes: new { @class = "label required" })
                                     <label class="input">
                                         <i class="icon-append fa fa-question-circle"></i>
-                                        @Html.DropDownListFor(model => model.DA_Approver1, (SelectList)ViewBag.UserList, "Select DA Approver 1", htmlAttributes: new { @tabindex = "2", @placeholder = "Select DA Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover1" })
+                                        @Html.DropDownListFor(model => model.DA_Approver1, (SelectList)ViewBag.UserList, "Select DA Approver 1", htmlAttributes: new { @tabindex = "3", @placeholder = "Select DA Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover1" })
                                         <b class="tooltip tooltip-top-right">
                                             <i class="fa fa-warning txt-color-teal"></i>
                                             Select Approver 1 for eTCC
@@ -84,10 +84,10 @@
                                     @Html.LabelFor(model => model.PAYE_Approver1, htmlAttributes: new { @class = "label required" })
                                     <label class="input">
                                         <i class="icon-append fa fa-question-circle"></i>
-                                        @Html.DropDownListFor(model => model.PAYE_Approver1, (SelectList)ViewBag.UserList, "Select PAYE Approver 1", htmlAttributes: new { @tabindex = "2", @placeholder = "Select PAYE Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover1" })
+                                        @Html.DropDownListFor(model => model.PAYE_Approver1, (SelectList)ViewBag.UserList, "Select PAYE Approver 1", htmlAttributes: new { @tabindex = "4", @placeholder = "Select PAYE Approver 1 for eTCC", @class = "select2", @width = "100%", @id = "cboPayeApprover1" })
                                         <b class="tooltip tooltip-top-right">
                                             <i class="fa fa-warning txt-color-teal"></i>
-                                            Select Approver 1 for eTCC
+                                            Select PAYE Approver 1 for eTCC
                                         </b>
                                     </label>
                                     @Html.ValidationMessageFor(model => model.PAYE_Approver1, "", htmlAttributes: new { @class = "help-block" })
@@ -96,7 +96,7 @@
                                     @Html.LabelFor(model => model.Approver2, htmlAttributes: new { @class = "label required" })
                                     <label class="input">
                                         <i class="icon-append fa fa-question-circle"></i>
-                                        @Html.DropDownListFor(model => model.Approver2, (SelectList)ViewBag.UserList, "Select Approver 2", htmlAttributes: new { @tabindex = "3", @placeholder = "Select Approver 2 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover2" })
+                                        @Html.DropDownListFor(model => model.Approver2, (SelectList)ViewBag.UserList, "Select Approver 2", htmlAttributes: new { @tabindex = "5", @placeholder = "Select Approver 2 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover2" })
                                         <b class="tooltip tooltip-top-right">
                                             <i class="fa fa-warning txt-color-teal"></i>
                                             Select Approver 2 for eTCC
@@ -108,7 +108,7 @@
                                     @Html.LabelFor(model => model.Approver3, htmlAttributes: new { @class = "label required" })
                                     <label class="input">
                                         <i class="icon-append fa fa-question-circle"></i>
-                                        @Html.DropDownListFor(model => model.Approver3, (SelectList)ViewBag.UserList, "Select Approver 3", htmlAttributes: new { @tabindex = "4", @placeholder = "Select Approver 3 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover3" })
+                                        @Html.DropDownListFor(model => model.Approver3, (SelectList)ViewBag.UserList, "Select Approver 3", htmlAttributes: new { @tabindex = "6", @placeholder = "Select Approver 3 for eTCC", @class = "select2", @width = "100%", @id = "cboApprover3" })
                                         <b class="tooltip tooltip-top-right">
                                             <i class="fa fa-warning txt-color-teal"></i>
                                             Select Approver 3 for eTCC
@@ -132,7 +132,7 @@
                                 @Html.ValidationBootstrap()
                                 @Html.HiddenFor(model => model.TaxOfficeName, htmlAttributes: new { @id = "hdnTaxOfficeName" })
                                 @Html.HiddenFor(model => model.DA_Approver1, htmlAttributes: new { @id = "hdnApprover1" })
-                                @Html.HiddenFor(model => model.PAYE_Approver1, htmlAttributes: new { @id = "hdnApprover1" })
+                                @Html.HiddenFor(model => model.PAYE_Approver1, htmlAttributes: new { @id = "hdnPayeApprover1" })
                                 @Html.HiddenFor(model => model.Approver2, htmlAttributes: new { @id = "hdnApprover2" })
                                 @Html.HiddenFor(model => model.Approver3, htmlAttributes: new { @id = "hdnApprover3" })
                                 @Html.HiddenFor(model => model.Zone, htmlAttributes: new { @id = "hdnZone" })
