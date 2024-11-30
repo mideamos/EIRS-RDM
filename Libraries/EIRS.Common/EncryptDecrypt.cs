@@ -34,7 +34,7 @@ namespace EIRS.Common
                 return encodedPhrase;
 
             }
-            catch (Exception Ex)
+            catch (Exception)
             {
                 //CommUtil.ExceptionHandler(Ex);
                 return null;
@@ -61,7 +61,7 @@ namespace EIRS.Common
 
                 return decodedPhrase;
             }
-            catch (Exception Ex)
+            catch (Exception)
             {
                 //CommUtil.ExceptionHandler(Ex);
                 return null;
