@@ -46,7 +46,7 @@ namespace EIRS.Common
                 scEmailSender.DeliveryMethod = SmtpDeliveryMethod.Network;
                 scEmailSender.Send(mmEmailContainer);
             }
-            catch (Exception Ex)
+            catch (Exception )
             {
                 return false;
             }
@@ -92,7 +92,7 @@ namespace EIRS.Common
                 scEmailSender.DeliveryMethod = SmtpDeliveryMethod.Network;
                 scEmailSender.Send(mmEmailContainer);
             }
-            catch (Exception Ex)
+            catch (Exception )
             {
                 return false;
             }
