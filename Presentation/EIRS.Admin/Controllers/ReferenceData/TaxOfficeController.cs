@@ -218,7 +218,7 @@ namespace EIRS.Admin.Controllers
                     IncomeDirector = pObjTaxOfficeModel.IncomeDirector,
                     AddressTypeID = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.AddressTypeID : 0,
                     BuildingID = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.BuildingID : 0,
-                    ZoneId = mObjTaxOfficeAddress != null ? mObjTaxOfficeAddress.ZoneID : 0,
+                    ZoneId = pObjTaxOfficeModel != null ? pObjTaxOfficeModel.Zone : 0,
                     Active = pObjTaxOfficeModel.Active,
                     ModifiedBy = SessionManager.SystemUserID,
                     ModifiedDate = CommUtil.GetCurrentDateTime()
