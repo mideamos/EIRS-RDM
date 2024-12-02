@@ -47,7 +47,7 @@
                                         @Html.LabelFor(model => model.Zone, htmlAttributes: new { @class = "label required" })
                                         <label class="input">
                                             <i class="icon-append fa fa-question-circle"></i>
-                                            @Html.DropDownListFor(model => model.Zone, (SelectList)ViewBag.Zone, "Select Zone", htmlAttributes: new { @tabindex = "2", @placeholder = "Select Zone", @class = "select2", @width = "100%", @id = "cboApprover1" })
+                                            @Html.DropDownListFor(model => model.Zone, (SelectList)ViewBag.Zone, "Select Zone", htmlAttributes: new { @tabindex = "2", @placeholder = "Select Zone", @class = "select2", @width = "100%", @id = "cboZoneId" })
                                             <b class="tooltip tooltip-top-right">
                                                 <i class="fa fa-warning txt-color-teal"></i>
                                                 Select Zone
@@ -114,28 +114,28 @@
                                             </b>
                                         </label>
                                         @Html.ValidationMessageFor(model => model.Approver3, "", htmlAttributes: new { @class = "help-block" })
-                                    </section> 
+                                    </section>
                                     <section>
                                         @Html.LabelFor(model => model.OfficeManager, htmlAttributes: new { @class = "label required" })
                                         <label class="input">
                                             <i class="icon-append fa fa-question-circle"></i>
                                             @Html.DropDownListFor(model => model.OfficeManager, (SelectList)ViewBag.UserListForapproval, "Select Office Manager", htmlAttributes: new { @tabindex = "4", @placeholder = "Select Office Manager", @class = "select2", @width = "100%", @id = "cboOfficeManager" })
-                                        <b class="tooltip tooltip-top-right">
-                                            <i class="fa fa-warning txt-color-teal"></i>
-                                            Select Branch Manager for Approval
-                                        </b>
+                                            <b class="tooltip tooltip-top-right">
+                                                <i class="fa fa-warning txt-color-teal"></i>
+                                                Select Branch Manager for Approval
+                                            </b>
                                         </label>
                                         @Html.ValidationMessageFor(model => model.OfficeManager, "", htmlAttributes: new { @class = "help-block" })
-                                    </section> 
+                                    </section>
                                     <section>
                                         @Html.LabelFor(model => model.IncomeDirector, htmlAttributes: new { @class = "label required" })
                                         <label class="input">
                                             <i class="icon-append fa fa-question-circle"></i>
                                             @Html.DropDownListFor(model => model.IncomeDirector, (SelectList)ViewBag.UserListForDirector, "Select Income Director", htmlAttributes: new { @tabindex = "4", @placeholder = "Select Income Director", @class = "select2", @width = "100%", @id = "cboIncomeDirector" })
-                                        <b class="tooltip tooltip-top-right">
-                                            <i class="fa fa-warning txt-color-teal"></i>
-                                            Select Income Director For Approval
-                                        </b>
+                                            <b class="tooltip tooltip-top-right">
+                                                <i class="fa fa-warning txt-color-teal"></i>
+                                                Select Income Director For Approval
+                                            </b>
                                         </label>
                                         @Html.ValidationMessageFor(model => model.IncomeDirector, "", htmlAttributes: new { @class = "help-block" })
                                     </section>
@@ -162,6 +162,7 @@
                                 @Html.ValidationBootstrap()
                                 @Html.HiddenFor(model => model.TaxOfficeID, htmlAttributes: new { @value = Model.TaxOfficeID })
                                 @Html.HiddenFor(model => model.TaxOfficeName, htmlAttributes: new { @id = "hdnTaxOfficeName" })
+                                @Html.HiddenFor(model => model.Zone, htmlAttributes: new { @id = "hdnZoneId" })
                                 @Html.HiddenFor(model => model.DA_Approver1, htmlAttributes: new { @id = "hdnDAApprover1" })
                                 @Html.HiddenFor(model => model.PAYE_Approver1, htmlAttributes: new { @id = "hdnPayeApprover1" })
                                 @Html.HiddenFor(model => model.Approver2, htmlAttributes: new { @id = "hdnApprover2" })
