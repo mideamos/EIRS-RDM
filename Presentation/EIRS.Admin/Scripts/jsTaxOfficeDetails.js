@@ -75,6 +75,7 @@ $(document).ready(function () {
     //    debugger;
     //    return false;
     //});
+
     $("#btnNext").click(function () {
         debugger;
 
@@ -86,6 +87,7 @@ $(document).ready(function () {
             var incomeDirector = $("#cboIncomeDirector").val();
             var officeManager = $("#cboOfficeManager").val();
             var approver3 = $("#cboApprover3").val();
+            var ZoneId = $("#cboZoneId").val();
             var isActive = $("#chkActive").is(":checked");
 
             console.log("Tax Office Name:", taxOfficeName);
@@ -95,6 +97,7 @@ $(document).ready(function () {
             console.log("Income Director:", incomeDirector);
             console.log("Office Manager:", officeManager);
             console.log("Approver 3:", approver3);
+            console.log("ZoneId:", ZoneId);
             console.log("Is Active:", isActive);
 
             $("#lblTaxOfficeName").html(taxOfficeName);
@@ -105,6 +108,7 @@ $(document).ready(function () {
             $("#hdnIncomeDirector").val(incomeDirector);
             $("#hdnOfficeManager").val(officeManager);
             $("#hdnApprover3").val(approver3);
+            $("#hdnZoneId").val(ZoneId);
             $("#hdnActive").val(isActive);
 
             $("#frmTaxOfficeInformation").hide();

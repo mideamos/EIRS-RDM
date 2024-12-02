@@ -71,6 +71,9 @@ namespace EIRS.Repository
                 mObjInsertUpdateTaxOffice.Approver2 = pObjTaxOffice.Approver2;
                 mObjInsertUpdateTaxOffice.Approver3 = pObjTaxOffice.Approver3;
                 mObjInsertUpdateTaxOffice.PAYE_ApproverID = pObjTaxOffice.PAYE_ApproverID;
+                mObjInsertUpdateTaxOffice.OfficeManagerID = pObjTaxOffice.OfficeManagerID;
+                mObjInsertUpdateTaxOffice.IncomeDirector = pObjTaxOffice.IncomeDirector;
+                mObjInsertUpdateTaxOffice.ZoneId = pObjTaxOffice.ZoneId;
                 mObjInsertUpdateTaxOffice.Active = pObjTaxOffice.Active;
 
                 if (pObjTaxOffice.TaxOfficeID == 0)
