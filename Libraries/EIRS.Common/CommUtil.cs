@@ -472,7 +472,7 @@ namespace EIRS.Common
                         tbl.Rows.Add(row);
                     }
                 }
-                catch (Exception Ex)
+                catch (Exception)
                 {
                     break;
                 }
