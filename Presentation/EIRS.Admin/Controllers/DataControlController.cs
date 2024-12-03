@@ -530,7 +530,7 @@ namespace EIRS.Admin.Controllers
             {
                 List<AssessmentAndItemRollOver> assessmentAndItems = new List<AssessmentAndItemRollOver>();
                 var presentYear = DateTime.Now.Year;
-                var newYear = presentYear + 1;
+                var newYear = presentYear;
                 var retVal = (from r in _db2.Assessment_Rules
                               join a in _db2.MAP_AssessmentRule_AssessmentItem
                               on r.AssessmentRuleID equals a.AssessmentRuleID
