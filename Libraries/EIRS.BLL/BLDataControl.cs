@@ -3,6 +3,7 @@ using EIRS.Common;
 using EIRS.Repository;
 using System.Collections.Generic;
 using static EIRS.Repository.DataControlRepository;
+using AssessmentRuleRollover = EIRS.Repository.DataControlRepository.AssessmentRuleRollover;
 
 namespace EIRS.BLL
 {

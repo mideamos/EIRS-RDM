@@ -83,6 +83,9 @@
     <Compile Include="Assessment.cs">
       <DependentUpon>EIRSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AssessmentRuleRollover.cs">
+      <DependentUpon>EIRSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Assessment_Group.cs">
       <DependentUpon>EIRSModel.tt</DependentUpon>
     </Compile>

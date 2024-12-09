@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using EIRS.BOL;
 using static EIRS.Repository.DataControlRepository;
+using AssessmentRuleRollover = EIRS.Repository.DataControlRepository.AssessmentRuleRollover;
 
 namespace EIRS.Repository
 {

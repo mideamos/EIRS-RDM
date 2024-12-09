@@ -175,6 +175,26 @@ warning 6002: The table/view 'EIRS.dbo.ApproverType' does not have a primary key
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="AssessmentRuleRollover">
+          <Key>
+            <PropertyRef Name="AssessmentRuleID" />
+          </Key>
+          <Property Name="AssessmentRuleID" Type="int" Nullable="false" />
+          <Property Name="AssessmentRuleCode" Type="varchar" MaxLength="500" />
+          <Property Name="ProfileID" Type="int" />
+          <Property Name="AssessmentRuleName" Type="varchar" MaxLength="100" />
+          <Property Name="RuleRunID" Type="int" />
+          <Property Name="PaymentFrequencyID" Type="int" />
+          <Property Name="AssessmentAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TaxYear" Type="int" />
+          <Property Name="TaxMonth" Type="int" />
+          <Property Name="PaymentOptionID" Type="int" />
+          <Property Name="Activebit" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Asset_Types">
           <Key>
             <PropertyRef Name="AssetTypeID" />
@@ -896,6 +916,7 @@ warning 6002: The table/view 'EIRS.dbo.DA_And_PAYE_TCC_Details' does not have a 
           <Property Name="DataSourceID" Type="int" />
           <Property Name="DSRefID" Type="bigint" />
           <Property Name="NIN" Type="varchar" MaxLength="15" />
+          <Property Name="NINStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="JTB_Individual">
           <Key>
@@ -2101,7 +2122,7 @@ warning 6002: The table/view 'EIRS.dbo.DA_And_PAYE_TCC_Details' does not have a 
           <Property Name="TCCRequestID" Type="bigint" />
           <Property Name="Tax_receipt" Type="nvarchar" MaxLength="100" />
           <Property Name="IndividualRIN" Type="nvarchar" MaxLength="50" />
-          <Property Name="ReveuneType" Type="varchar" MaxLength="10" />
+          <Property Name="ReveuneType" Type="nvarchar" MaxLength="11" />
         </EntityType>
         <EntityType Name="Notification_Method">
           <Key>
@@ -4123,114 +4144,6 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
             </Principal>
             <Dependent Role="Government">
               <PropertyRef Name="TaxPayerTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_Economic_Activities">
-          <End Role="Economic_Activities" Type="Self.Economic_Activities" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Economic_Activities">
-              <PropertyRef Name="EconomicActivitiesID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="EconomicActivitiesID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gender">
-              <PropertyRef Name="GenderID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="GenderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_MaritalStatus">
-          <End Role="MaritalStatus" Type="Self.MaritalStatus" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaritalStatus">
-              <PropertyRef Name="MaritalStatusID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="MaritalStatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_MST_RegisterationStatus">
-          <End Role="MST_RegisterationStatus" Type="Self.MST_RegisterationStatus" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MST_RegisterationStatus">
-              <PropertyRef Name="RegisterationStatusID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="RegisterationStatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_Nationality">
-          <End Role="Nationality" Type="Self.Nationality" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Nationality">
-              <PropertyRef Name="NationalityID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="NationalityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_Notification_Method">
-          <End Role="Notification_Method" Type="Self.Notification_Method" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Notification_Method">
-              <PropertyRef Name="NotificationMethodID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="NotificationMethodID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_Tax_Offices">
-          <End Role="Tax_Offices" Type="Self.Tax_Offices" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tax_Offices">
-              <PropertyRef Name="TaxOfficeID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="TaxOfficeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_TaxPayer_Types">
-          <End Role="TaxPayer_Types" Type="Self.TaxPayer_Types" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaxPayer_Types">
-              <PropertyRef Name="TaxPayerTypeID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="TaxPayerTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Individual_Titles">
-          <End Role="Titles" Type="Self.Titles" Multiplicity="0..1" />
-          <End Role="Individual" Type="Self.Individual" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Titles">
-              <PropertyRef Name="TitleID" />
-            </Principal>
-            <Dependent Role="Individual">
-              <PropertyRef Name="TitleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6863,7 +6776,6 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           <Parameter Name="TaxYear" Type="int" Mode="In" />
           <Parameter Name="RequestRefNo" Type="varchar" Mode="In" />
         </Function>
-        
         <Function Name="usp_GetTaxOfficeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TaxOfficeName" Type="varchar" Mode="In" />
           <Parameter Name="TaxOfficeID" Type="int" Mode="In" />
@@ -6882,7 +6794,6 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           <Parameter Name="IncludeTaxOfficeIds" Type="varchar" Mode="In" />
           <Parameter Name="ExcludeTaxOfficeIds" Type="varchar" Mode="In" />
         </Function>
-        
         <Function Name="usp_GetTaxOfficerTargetList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TaxOfficerID" Type="int" Mode="In" />
           <Parameter Name="TaxOfficeID" Type="int" Mode="In" />
@@ -8210,6 +8121,7 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           <EntitySet Name="Assessment_Items" EntityType="Self.Assessment_Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Assessment_Rules" EntityType="Self.Assessment_Rules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Assessment_SubGroup" EntityType="Self.Assessment_SubGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssessmentRuleRollover" EntityType="Self.AssessmentRuleRollover" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Asset_Types" EntityType="Self.Asset_Types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Audit_Log" EntityType="Self.Audit_Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Building" EntityType="Self.Building" Schema="dbo" store:Type="Tables" />
@@ -8946,42 +8858,6 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           <AssociationSet Name="FK_Government_TaxPayer_Types" Association="Self.FK_Government_TaxPayer_Types">
             <End Role="TaxPayer_Types" EntitySet="TaxPayer_Types" />
             <End Role="Government" EntitySet="Government" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_Economic_Activities" Association="Self.FK_Individual_Economic_Activities">
-            <End Role="Economic_Activities" EntitySet="Economic_Activities" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_Gender" Association="Self.FK_Individual_Gender">
-            <End Role="Gender" EntitySet="Gender" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_MaritalStatus" Association="Self.FK_Individual_MaritalStatus">
-            <End Role="MaritalStatus" EntitySet="MaritalStatus" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_MST_RegisterationStatus" Association="Self.FK_Individual_MST_RegisterationStatus">
-            <End Role="MST_RegisterationStatus" EntitySet="MST_RegisterationStatus" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_Nationality" Association="Self.FK_Individual_Nationality">
-            <End Role="Nationality" EntitySet="Nationality" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_Notification_Method" Association="Self.FK_Individual_Notification_Method">
-            <End Role="Notification_Method" EntitySet="Notification_Method" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_Tax_Offices" Association="Self.FK_Individual_Tax_Offices">
-            <End Role="Tax_Offices" EntitySet="Tax_Offices" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_TaxPayer_Types" Association="Self.FK_Individual_TaxPayer_Types">
-            <End Role="TaxPayer_Types" EntitySet="TaxPayer_Types" />
-            <End Role="Individual" EntitySet="Individual" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Individual_Titles" Association="Self.FK_Individual_Titles">
-            <End Role="Titles" EntitySet="Titles" />
-            <End Role="Individual" EntitySet="Individual" />
           </AssociationSet>
           <AssociationSet Name="FK_Land_Asset_Types" Association="Self.FK_Land_Asset_Types">
             <End Role="Asset_Types" EntitySet="Asset_Types" />
@@ -12963,6 +12839,7 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
             <End Role="TCC_Request1" EntitySet="TCC_Request" />
           </AssociationSet>
           <EntitySet Name="ApproverTypes" EntityType="EIRSModel.ApproverType" />
+          <EntitySet Name="AssessmentRuleRollovers" EntityType="EIRSModel.AssessmentRuleRollover" />
           <!--<EntitySet Name="TestingNEWTAB" EntityType="EIRSModel.TestingNEWTAB" />
           <EntitySet Name="vw_ServiceBillNew" EntityType="EIRSModel.vw_ServiceBillNew" />-->
           </EntityContainer>
@@ -13587,6 +13464,7 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           <Property Name="DataSourceID" Type="Int32" />
           <Property Name="DSRefID" Type="Int64" />
           <Property Name="NIN" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NINStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Land">
           <Key>
@@ -24069,7 +23947,7 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           <Property Name="Tax_receipt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IndividualRIN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TCCRequestID" Type="Int64" />
-          <Property Name="ReveuneType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ReveuneType" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BusinessName">
           <Key>
@@ -24109,6 +23987,26 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           </Key>
           <Property Name="ApproverTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ApproverTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AssessmentRuleRollover">
+          <Key>
+            <PropertyRef Name="AssessmentRuleID" />
+          </Key>
+          <Property Name="AssessmentRuleID" Type="Int32" Nullable="false" />
+          <Property Name="AssessmentRuleCode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ProfileID" Type="Int32" />
+          <Property Name="AssessmentRuleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RuleRunID" Type="Int32" />
+          <Property Name="PaymentFrequencyID" Type="Int32" />
+          <Property Name="AssessmentAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TaxYear" Type="Int32" />
+          <Property Name="TaxMonth" Type="Int32" />
+          <Property Name="PaymentOptionID" Type="Int32" />
+          <Property Name="Activebit" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
        
         </Schema>
@@ -24613,6 +24511,7 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
           <EntitySetMapping Name="Individuals">
             <EntityTypeMapping TypeName="EIRSModel.Individual">
               <MappingFragment StoreEntitySet="Individual">
+                <ScalarProperty Name="NINStatus" ColumnName="NINStatus" />
                 <ScalarProperty Name="NIN" ColumnName="NIN" />
                 <ScalarProperty Name="DSRefID" ColumnName="DSRefID" />
                 <ScalarProperty Name="DataSourceID" ColumnName="DataSourceID" />
@@ -33758,6 +33657,27 @@ warning 6002: The table/view 'EIRS.dbo.vw_Vehicle' does not have a primary key d
               <MappingFragment StoreEntitySet="ApproverType">
                 <ScalarProperty Name="ApproverTypeName" ColumnName="ApproverTypeName" />
                 <ScalarProperty Name="ApproverTypeId" ColumnName="ApproverTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssessmentRuleRollovers">
+            <EntityTypeMapping TypeName="EIRSModel.AssessmentRuleRollover">
+              <MappingFragment StoreEntitySet="AssessmentRuleRollover">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Activebit" ColumnName="Activebit" />
+                <ScalarProperty Name="PaymentOptionID" ColumnName="PaymentOptionID" />
+                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+                <ScalarProperty Name="TaxYear" ColumnName="TaxYear" />
+                <ScalarProperty Name="AssessmentAmount" ColumnName="AssessmentAmount" />
+                <ScalarProperty Name="PaymentFrequencyID" ColumnName="PaymentFrequencyID" />
+                <ScalarProperty Name="RuleRunID" ColumnName="RuleRunID" />
+                <ScalarProperty Name="AssessmentRuleName" ColumnName="AssessmentRuleName" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+                <ScalarProperty Name="AssessmentRuleCode" ColumnName="AssessmentRuleCode" />
+                <ScalarProperty Name="AssessmentRuleID" ColumnName="AssessmentRuleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

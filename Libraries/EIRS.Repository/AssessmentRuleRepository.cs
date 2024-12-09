@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using static EIRS.Repository.DataControlRepository;
+using AssessmentRuleRollover = EIRS.Repository.DataControlRepository.AssessmentRuleRollover;
 
 namespace EIRS.Repository
 {

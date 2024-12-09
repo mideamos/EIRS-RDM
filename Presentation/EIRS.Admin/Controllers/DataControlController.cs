@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using PagedList;
 using System.Security.Policy;
+using AssessmentRuleRollover = EIRS.Admin.Models.AssessmentRuleRollover;
+
 
 namespace EIRS.Admin.Controllers
 {
@@ -628,7 +630,7 @@ namespace EIRS.Admin.Controllers
                 var retVal = (from r in _db2.Assessment_Rules
                               join a in _db2.MAP_AssessmentRule_AssessmentItem
                               on r.AssessmentRuleID equals a.AssessmentRuleID
-                              where r.TaxYear == 2021
+                              where r.TaxYear == 2024
                               select new
                               {
                                   assessmentRuleID = r.AssessmentRuleID,

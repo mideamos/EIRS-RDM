@@ -26,7 +26,6 @@ namespace EIRS.BOL
         public Nullable<int> BuildingID { get; set; }
         public string BuildingName { get; set; }
         public Nullable<int> ZoneID { get; set; }
-        public Nullable<int> PayeApproverId { get; set; }
         public string ZoneName { get; set; }
         public string BuildingRIN { get; set; }
         public string TownName { get; set; }
