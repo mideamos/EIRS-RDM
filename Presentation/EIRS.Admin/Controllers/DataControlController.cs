@@ -480,7 +480,7 @@ namespace EIRS.Admin.Controllers
         [NonAction]
         public FuncResponse<List<Assessment_Rules>> AddAssessmentRule(List<AssessmentRuleRollover> roll)
         {
-            var currentYear = "2023";
+            var currentYear = "2025";
             List<Assessment_Rules> rlollover = new List<Assessment_Rules>();
             string substring = currentYear.Substring(2, 2);
             FuncResponse<List<Assessment_Rules>> mObjFuncResponse = new FuncResponse<List<Assessment_Rules>>(); //Return Object

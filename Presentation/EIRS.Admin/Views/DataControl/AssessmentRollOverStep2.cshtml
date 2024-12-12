@@ -45,32 +45,38 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssessmentRuleID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssessmentRuleCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfileID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssessmentRuleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssessmentAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxYear)
+                </td>
+            </tr>
+        }
+    }
+    else
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssessmentRuleID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssessmentRuleCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProfileID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssessmentRuleName)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.AssessmentAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaxYear)
-            </td>
-
+            <td colspan="6">No data available</td>
         </tr>
     }
-
 </table>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

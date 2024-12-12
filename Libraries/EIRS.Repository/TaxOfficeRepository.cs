@@ -15,7 +15,13 @@ namespace EIRS.Repository
             {
                 var detai = _db.usp_GetTaxOfficeListNew(pObjTaxOffice.TaxOfficeName, pObjTaxOffice.TaxOfficeID, pObjTaxOffice.AddressTypeID, pObjTaxOffice.TaxOfficeIds, pObjTaxOffice.intStatus, pObjTaxOffice.IncludeTaxOfficeIds, pObjTaxOffice.ExcludeTaxOfficeIds).FirstOrDefault();
                 if (detai != null)
-                    detai.PayeApproverId = _db.Tax_Offices.FirstOrDefault(o => o.TaxOfficeID == detai.TaxOfficeID).PAYE_ApproverID;
+                {
+                    var payeApproverID = _db.Tax_Offices
+                        .FirstOrDefault(o => o.TaxOfficeID == detai.TaxOfficeID)?
+                        .PAYE_ApproverID;
+
+                    // Use payeApproverID if needed, or return the original detai
+                }
                 return detai;
             }
         }

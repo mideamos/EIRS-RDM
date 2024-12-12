@@ -16,7 +16,14 @@
     </div>
     <div class="col-xs-12 col-sm-5 text-right">
 
-        <a href="@Url.Action("AssessmentRollOverStep2","DataControl")" class="btn btn-default">STEP 2 </a>
+        <a href="@Url.Action("AssessmentRollOverStep2", "DataControl")"
+           class="btn btn-default"
+           id="continueRollOverButton">Continue RollOver</a>
+        <!-- Loader -->
+        <img id="loadingSpinner"
+             src="~/Content/Images/ajax-loader/ajax-loader"
+             alt="Loading..."
+             style="display: none; margin-left: 10px;" />
     </div>
 </div>
 
@@ -76,4 +83,10 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("AssessmentRollOverStep1",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+@section Scripts {
+    <script>document.getElementById('continueRollOverButton').addEventListener('click', function (e) {
+            // Show loader when button is clicked
+            document.getElementById('loadingSpinner').style.display = 'inline-block';
+        });</script>
