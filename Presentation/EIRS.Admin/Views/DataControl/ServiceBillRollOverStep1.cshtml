@@ -1,0 +1,54 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<EIRS.Admin.Models.ServiceBillAndItemRollOver>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Service Bill Roll Over Step 1";
+}
+
+<h2>Service Bill Roll Over Step 1</h2>
+
+
+
+
+@using (Html.BeginForm("AssessmentRollOverStep1", "DataControl", FormMethod.Get))
+{
+    <p>
+        Find by MDA SERVICE NAME: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TaxYear)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().ServiceAmount)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MDAServiceCode)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MDAServiceName)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().ServiceBaseAmount)</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TaxYear)</td>
+                <td>@Html.DisplayFor(modelItem => item.ServiceAmount)</td>
+                <td>@Html.DisplayFor(modelItem => item.MDAServiceCode)</td>
+                <td>@Html.DisplayFor(modelItem => item.MDAServiceName)</td>
+                <td>@Html.DisplayFor(modelItem => item.ServiceBaseAmount)</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No records found.</p>
+}
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("ServiceBillRollOverStep1",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
