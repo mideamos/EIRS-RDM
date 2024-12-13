@@ -284,6 +284,7 @@ namespace EIRS.Admin.Controllers
         }
 
 
+
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -475,10 +476,11 @@ namespace EIRS.Admin.Controllers
             IList<usp_DC_GetCompanyWithoutAssessment_Result> lstCompanyWithoutAssessment = new BLDataControl().BL_GetCompanyWithoutAssessment();
             return View(lstCompanyWithoutAssessment);
         }
+
         [NonAction]
         public FuncResponse<List<Assessment_Rules>> AddAssessmentRule(List<AssessmentRuleRollover> roll)
         {
-            var currentYear = "2023";
+            var currentYear = "2025";
             List<Assessment_Rules> rlollover = new List<Assessment_Rules>();
             string substring = currentYear.Substring(2, 2);
             FuncResponse<List<Assessment_Rules>> mObjFuncResponse = new FuncResponse<List<Assessment_Rules>>(); //Return Object
@@ -530,7 +532,7 @@ namespace EIRS.Admin.Controllers
             {
                 List<AssessmentAndItemRollOver> assessmentAndItems = new List<AssessmentAndItemRollOver>();
                 var presentYear = DateTime.Now.Year;
-                var newYear = presentYear + 1;
+                var newYear = presentYear;
                 var retVal = (from r in _db2.Assessment_Rules
                               join a in _db2.MAP_AssessmentRule_AssessmentItem
                               on r.AssessmentRuleID equals a.AssessmentRuleID
@@ -573,6 +575,7 @@ namespace EIRS.Admin.Controllers
                 return assessmentAndItems;
             }
         }
+
         [NonAction]
         public IList<ServiceBillAndItemRollOver> GetServiceBillAndItem()
         {
@@ -609,7 +612,7 @@ namespace EIRS.Admin.Controllers
                     andItem.Percentage = item.percentage.HasValue ? item.percentage.Value : 0;
                     andItem.ServiceBaseAmount = item.serviceBaseAmount.HasValue ? item.serviceBaseAmount.Value : 0;
                     andItem.MDAServiceName = item.mDAServiceName;
-                   // andItem.MDAServiceCode = item.MDAServiceCode;
+                    // andItem.MDAServiceCode = item.MDAServiceCode;
                     //andItem.NewAssessmentRuleId = 0;
                     assessmentAndItems.Add(andItem);
                 }
@@ -628,7 +631,7 @@ namespace EIRS.Admin.Controllers
                 var retVal = (from r in _db2.Assessment_Rules
                               join a in _db2.MAP_AssessmentRule_AssessmentItem
                               on r.AssessmentRuleID equals a.AssessmentRuleID
-                              where r.TaxYear == 2021
+                              where r.TaxYear == 2024
                               select new
                               {
                                   assessmentRuleID = r.AssessmentRuleID,

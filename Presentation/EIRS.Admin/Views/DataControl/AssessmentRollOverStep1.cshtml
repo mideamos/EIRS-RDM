@@ -7,6 +7,8 @@
     ViewBag.Title = "Assessment Rule RollOver Step 1";
 }
 
+
+
 <div class="row">
     <div class="col-xs-12 col-sm-7">
         <h1 class="page-title txt-color-blueDark">
@@ -15,9 +17,17 @@
         </h1>
     </div>
     <div class="col-xs-12 col-sm-5 text-right">
-
-        <a href="@Url.Action("AssessmentRollOverStep2","DataControl")" class="btn btn-default">STEP 2 </a>
+        <a href="@Url.Action("AssessmentRollOverStep2","DataControl")"
+           class="btn btn-info"
+           id="processRollOverButton"
+           onclick="return showLoader();">
+            Continue RollOver
+        </a>
     </div>
+</div>
+
+<div id="loader" style="display:none; text-align:center; margin-top:20px;">
+    <img src="~/Content/Images/ajax-loader.gif" alt="Loading..." />
 </div>
 
 <table class="table">
@@ -45,7 +55,8 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in 
+    Model)
     {
         <tr>
             <td>
@@ -77,3 +88,10 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("AssessmentRollOverStep1",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script>
+     // Function to display the loader
+    function showLoader() {
+        document.getElementById("loader").style.display = "block";
+    }
+</script>

@@ -6,6 +6,8 @@
 
 @{
     ViewBag.Title = "ServiceIndex";
+    var currentYear = DateTime.Now.Year;
+    var succeedingYear = currentYear + 1;
 }
 
 <div class="row">
@@ -16,17 +18,25 @@
         </h1>
     </div>
     <div class="col-xs-12 col-sm-5 text-right">
-
-        <a href="@Url.Action("ServiceBillRollOverStep1","DataControl")" class="btn btn-default">STEP 1 </a>
+        <a href="@Url.Action("ServiceBillRollOverStep1","DataControl")"
+           class="btn btn-info"
+           id="processRollOverButton"
+           onclick="return confirmRollOverAndShowLoader(@currentYear, @succeedingYear);">
+            Process RollOver
+        </a>
     </div>
+</div>
+
+<div id="loader" style="display:none; text-align:center; margin-top:20px;">
+    <img src="~/Content/Images/ajax-loader.gif" alt="Loading..." />
 </div>
 
 @using (Html.BeginForm("ServiceIndex", "DataControl", FormMethod.Get))
 {
-    <p>
-        Find by MDA SERVICE NAME: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
+<p>
+    Find by MDA SERVICE NAME: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <input type="submit" value="Search" />
+</p>
 }
 <table class="table">
     <tr>
@@ -55,27 +65,27 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+    <tr>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.TaxYear)
-            </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxYear)
+        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceAmount)
-            </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceAmount)
+        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.MDAServiceCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MDAServiceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceBaseAmount)
-            </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MDAServiceCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MDAServiceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceBaseAmount)
+        </td>
 
-        </tr>
+    </tr>
     }
 
 </table>
@@ -84,3 +94,25 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("ServiceIndex",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script>
+    // Show loader and confirm action for Process RollOver
+    function confirmRollOverAndShowLoader(currentYear, succeedingYear) {
+        var message = `Do you wish to roll over '${currentYear}' (current year) to '${succeedingYear}' (succeeding year)?`;
+        if (confirm(message)) {
+            showLoader();
+            return true; // Proceed with action
+        }
+        return false; // Cancel action
+    }
+
+    // Show the loader when form is submitted
+    document.getElementById("searchForm").addEventListener("submit", function () {
+        showLoader();
+    });
+
+    // Function to display the loader
+    function showLoader() {
+        document.getElementById("loader").style.display = "block";
+    }
+</script>
