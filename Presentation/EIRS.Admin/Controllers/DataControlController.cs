@@ -283,8 +283,6 @@ namespace EIRS.Admin.Controllers
             return View();
         }
 
-
-
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -342,25 +340,25 @@ namespace EIRS.Admin.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-            IList<ServiceBillAndItemRollOver> assessmentAndItemRollOvers = GetServiceBillAndItem();
+            IList<ServiceBillAndItemRollOver> ServiceBillAndItemRollOvers = GetServiceBillAndItem();
 
-            var lstAss = assessmentAndItemRollOvers;
+            var lstSer = ServiceBillAndItemRollOvers;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                lstAss = lstAss.Where(s =>
+                lstSer = lstSer.Where(s =>
                         s.MDAServiceName.Contains(searchString)).ToList();
             }
 
             switch (sortOrder)
             {
                 case "nameDesc":
-                    lstAss = lstAss.OrderByDescending(s => s.MDAServiceName).ToList();
+                    lstSer = lstSer.OrderByDescending(s => s.MDAServiceName).ToList();
                     break;
             }
             int pageSize = 20;
             int pageNumber = (page ?? 1);
-            var ret = lstAss.ToPagedList(pageNumber, pageSize);
+            var ret = lstSer.ToPagedList(pageNumber, pageSize);
             return View(ret);
         }
         public ViewResult ServiceBillRollOverStep1(string sortOrder, string currentFilter, string searchString, int? page)
@@ -368,7 +366,7 @@ namespace EIRS.Admin.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
             ViewData["DateSortParam"] = sortOrder == "date" ? "dateDesc" : "date";
-            List<TempAssHolder> lsttempAssHolder = new List<TempAssHolder>();
+            List<TempMdaHolder> lsttempMdaHolder = new List<TempMdaHolder>();
 
             if (searchString != null)
             {
@@ -387,50 +385,50 @@ namespace EIRS.Admin.Controllers
                 ViewBag.Year = year;
             }
 
-            List<Assessment_Rules> assessment_Rules = new List<Assessment_Rules>();
-            IList<AssessmentRuleRollover> assessments = new List<AssessmentRuleRollover>();
-            IList<AssessmentAndItemRollOver> lstAssessmentItems = GetAssessmentAndItem();
+            List<MDA_Services> MDAServices = new List<MDA_Services>();
+            IList<MdaserviceRollover> Mdaservice = new List<MdaserviceRollover>();
+            IList<MdaserviceRollover> lstMDAServiceandMDAServiceItem = GetMDAServiceandMDAServiceItem();
             if (page.HasValue)
             {
-                assessment_Rules = SessionManager.lstAssesRule.ToList();
+                MDAServices = SessionManager.lstMDAServices.ToList();
                 int pageSize = 20;
                 int pageNumber = page.Value;
-                var retVal = assessment_Rules.ToPagedList(pageNumber, pageSize);
+                var retVal = MDAServices.ToPagedList(pageNumber, pageSize);
                 return View(retVal);
             }
             else
             {
                 using (_db = new EirsDbContext())
                 {
-                    assessments = GetAssessmentAndRule();
-                    _db.AssessmentRuleRollover.AddRange(assessments);
+                    Mdaservice = GetMDAServiceandMDAServiceItem();
+                    _db.MdaserviceRollover.AddRange(Mdaservice);
                     var ret = _db.SaveChanges();
 
                     if (ret != 0)
                     {
-                        assessments = assessments.DistinctBy(p => new { p.AssessmentRuleCode, p.AssessmentRuleName, p.AssessmentAmount, p.Profileid, p.Taxyear, p.RuleRunId, p.Paymentfrequencyid }).ToList();
-                        assessments.Count();
-                        var res = AddAssessmentRule(assessments.ToList());
+                        Mdaservice = Mdaservice.DistinctBy(p => new { p.MdaserviceCode, p.MdaserviceId, p.MdaserviceItemId, p.MdaserviceName, p.Msmiid, p.TaxYear, p.RuleRunId, p.PaymentFrequencyId }).ToList();
+                        Mdaservice.Count();
+                        var res = AddMDAServices(Mdaservice.ToList());
                         if (res.Success)
                         {
                             using (_db = new EirsDbContext())
                             {
                                 foreach (var ret2 in res.AdditionalData.ToList())
                                 {
-                                    TempAssHolder tempAssHolder = new TempAssHolder();
-                                    tempAssHolder.AssessmentRuleCode = ret2.AssessmentRuleCode;
-                                    tempAssHolder.AssessmentRuleId = ret2.AssessmentRuleID;
+                                    TempMdaHolder tempMdaHolder = new TempMdaHolder();
+                                    tempMdaHolder.MDAServiceCode = ret2.MDAServiceCode;
+                                    tempMdaHolder.MdaserviceId = ret2.MDAServiceID;
 
-                                    lsttempAssHolder.Add(tempAssHolder);
-                                    _db.TempAssHolder.Add(tempAssHolder);
+                                    lsttempMdaHolder.Add(tempMdaHolder);
+                                    _db.TempMdaHolder.Add(tempMdaHolder);
                                 }
                                 try
                                 {
-                                    SessionManager.lstTempAssHolder = lsttempAssHolder;
+                                    SessionManager.lsttempMdaHolder = lsttempMdaHolder;
                                     _db.SaveChanges();
-                                    foreach (var tempAssHolder in lsttempAssHolder)
+                                    foreach (var tempMdaHolder in lsttempMdaHolder)
                                     {
-                                        _db.Database.ExecuteSqlCommand($"Update Assessment_Rules set AssessmentRuleCode = {tempAssHolder.AssessmentRuleCode} where AssessmentRuleID = {tempAssHolder.AssessmentRuleId}");
+                                        _db.Database.ExecuteSqlCommand($"Update MDA_Services set MdaserviceCode = {tempMdaHolder.MDAServiceCode} where MdaserviceId = {tempMdaHolder.MdaserviceId}");
 
                                     }
 
@@ -442,13 +440,111 @@ namespace EIRS.Admin.Controllers
                             }
                             int pageSize = 20;
                             int pageNumber = (page ?? 1);
-                            SessionManager.lstAssesRule = res.AdditionalData;
+                            SessionManager.lstMDAServices = res.AdditionalData;
                             var retVal = res.AdditionalData.ToPagedList(pageNumber, pageSize);
                             return View(retVal);
                         }
                     }
                 }
             }
+            return View();
+        }
+        public ViewResult ServiceBillRollOverStep2(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
+            ViewData["DateSortParam"] = sortOrder == "date" ? "dateDesc" : "date";
+        
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            List<MDA_Services> MDAServices = new List<MDA_Services>();
+       
+            if (page.HasValue)
+            {
+                MDAServices = SessionManager.lstMDAServices.ToList();
+                int pageSize = 20;
+                int pageNumber = page.Value;
+                var retVal = MDAServices.ToPagedList(pageNumber, pageSize);
+                return View(retVal);
+            }
+            else
+            {
+                int year = DateTime.Now.Year;
+                year = year + 1;
+                using (_db2 = new EIRSEntities())
+                {
+                    MDAServices = _db2.MDA_Services.Where(o => o.TaxYear == year).ToList(); ;
+                }
+                if (MDAServices.Count != 0)
+                {
+                    using (_db = new EirsDbContext())
+                    {
+                        try
+                        {
+                            foreach (var tempMDAHolder in MDAServices)
+                            {
+                                string ruleNmae = tempMDAHolder.MDAServiceName;
+                                _db.Database.ExecuteSqlCommand($"Update MdaserviceRollover set NewMdaserviceId = {tempMDAHolder.MDAServiceID} where MdaserviceName  =" + "'" + ruleNmae + "'");
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                    }
+                    int pageSize = 20;
+                    int pageNumber = (page ?? 1);
+                    var retVal = MDAServices.ToPagedList(pageNumber, pageSize);
+                    return View(retVal);
+                }
+
+            }
+            return View();
+        }
+        public ViewResult ServiceBillRollOverStep3(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            List<MdaserviceRollover> lsttempMdaHolder = new List<MdaserviceRollover>();
+            List<MAP_MDAService_MDAServiceItem> lstMap = new List<MAP_MDAService_MDAServiceItem>();
+            using (_db = new EirsDbContext())
+            {
+                lsttempMdaHolder = _db.MdaserviceRollover.ToList();
+            }
+            if (lsttempMdaHolder.Count > 0)
+            {
+                using (_db2 = new EIRSEntities())
+                {
+                    foreach (var item in lsttempMdaHolder)
+                    {
+                        MAP_MDAService_MDAServiceItem MapMDAServiceMdaServiceItem = new MAP_MDAService_MDAServiceItem();
+                        MapMDAServiceMdaServiceItem.MDAServiceItemID = item.MdaserviceItemId;
+                        MapMDAServiceMdaServiceItem.MDAServiceID = item.NewMdaserviceId;
+                        MapMDAServiceMdaServiceItem.CreatedBy = 1;
+                        MapMDAServiceMdaServiceItem.CreatedDate = DateTime.Now;
+
+                        lstMap.Add(MapMDAServiceMdaServiceItem);
+                    }
+
+                    _db2.MAP_MDAService_MDAServiceItem.AddRange(lstMap);
+                    var ret = _db2.SaveChanges();
+                    if (ret != 0)
+                    {
+                        ViewBag.Res = "Roll-Over Done Successfully";
+                        return View();
+                    }
+                    ViewBag.Res = "Mapping Not Successfully Done";
+                    return View();
+                }
+            }
+            ViewBag.Res = "No Record Found";
             return View();
         }
 
@@ -526,6 +622,73 @@ namespace EIRS.Admin.Controllers
         }
 
         [NonAction]
+        public FuncResponse<List<MDA_Services>> AddMDAServices(List<MdaserviceRollover> roll)
+        {
+            var currentYear = "2025";
+            List<MDA_Services> rlollover = new List<MDA_Services>();
+            string substring = currentYear.Substring(2, 2);
+            FuncResponse<List<MDA_Services>> mObjFuncResponse = new FuncResponse<List<MDA_Services>>();
+
+            if (roll == null)
+            {
+                mObjFuncResponse.Success = false;
+                mObjFuncResponse.Message = "The input list is null.";
+                return mObjFuncResponse;
+            }
+
+            using (_db2 = new EIRSEntities())
+            {
+                if (_db2 == null)
+                {
+                    mObjFuncResponse.Success = false;
+                    mObjFuncResponse.Message = "Database context is not initialized.";
+                    return mObjFuncResponse;
+                }
+
+                foreach (var rl in roll)
+                {
+                    if (rl == null) continue;
+                    bool stat = rl.Active;
+                    if (string.IsNullOrEmpty(rl.MdaserviceCode)) continue;
+
+                    var kk = rl.MdaserviceCode.ToString();
+                    var k2 = kk.Substring(0, kk.Length - 2);
+                    //var k1 = k2 + substring;
+                    var k1 = k2 + "-" + substring;
+
+                    MDA_Services rollover = new MDA_Services
+                    {
+                        MDAServiceName = rl.MdaserviceName ?? string.Empty,
+                        MDAServiceCode = k1,
+                        CreatedDate = DateTime.Now,
+                        PaymentFrequencyID = rl.PaymentFrequencyId,
+                        RuleRunID = rl.RuleRunId,
+                        ServiceAmount = rl.ServiceAmount.HasValue ? rl.ServiceAmount.Value : 0m,
+                        TaxYear = Convert.ToInt32(currentYear),
+                        PaymentOptionID = 1,
+                        CreatedBy = -1,
+                        Active = stat
+                    };
+
+                    _db2.MDA_Services.Add(rollover);
+                    rlollover.Add(rollover);
+                }
+                try
+                {
+                    _db2.SaveChanges();
+                    mObjFuncResponse.AdditionalData = rlollover;
+                    mObjFuncResponse.Success = true;
+                }
+                catch (Exception ex)
+                {
+                    mObjFuncResponse.Success = false;
+                    mObjFuncResponse.Message = $"An error occurred while saving changes: {ex.Message}";
+                }
+                return mObjFuncResponse;
+            }
+        }
+
+        [NonAction]
         public IList<AssessmentAndItemRollOver> GetAssessmentAndItem()
         {
             using (_db2 = new EIRSEntities())
@@ -583,25 +746,27 @@ namespace EIRS.Admin.Controllers
             {
                 List<ServiceBillAndItemRollOver> assessmentAndItems = new List<ServiceBillAndItemRollOver>();
                 var presentYear = DateTime.Now.Year;
-                var newYear = presentYear + 1;
+                var newYear = presentYear;
+
                 var retVal = (from r in _db2.MDA_Services
                               join a in _db2.MAP_MDAService_MDAServiceItem
-                              on r.MDAServiceID equals a.MDAServiceID
+                              on r.MDAServiceID equals a.MDAServiceID into serviceItemsGroup
+                              from a in serviceItemsGroup.DefaultIfEmpty() // Left join with MAP_MDAService_MDAServiceItem
                               join b in _db2.MDA_Service_Items
-                              on a.MDAServiceItemID equals b.MDAServiceItemID
+                              on a.MDAServiceItemID equals b.MDAServiceItemID into serviceItemsDetailsGroup
+                              from b in serviceItemsDetailsGroup.DefaultIfEmpty() // Left join with MDA_Service_Items
                               where r.TaxYear == presentYear
                               select new
                               {
                                   active = r.Active,
                                   taxYear = newYear,
-                                  percentage = b.Percentage,
-                                  serviceBaseAmount = b.ServiceBaseAmount,
+                                  percentage = b != null ? b.Percentage : (decimal?)null,
+                                  serviceBaseAmount = b != null ? b.ServiceBaseAmount : (decimal?)null,
                                   mDAServiceCode = r.MDAServiceCode,
                                   mDAServiceName = r.MDAServiceName,
                                   serviceAmount = r.ServiceAmount,
-                                  // mDAServiceItemName = r.MDAServiceCode,
-
                               }).ToList();
+
 
                 foreach (var item in retVal)
                 {
@@ -612,7 +777,7 @@ namespace EIRS.Admin.Controllers
                     andItem.Percentage = item.percentage.HasValue ? item.percentage.Value : 0;
                     andItem.ServiceBaseAmount = item.serviceBaseAmount.HasValue ? item.serviceBaseAmount.Value : 0;
                     andItem.MDAServiceName = item.mDAServiceName;
-                    // andItem.MDAServiceCode = item.MDAServiceCode;
+                    andItem.MDAServiceCode = item.mDAServiceCode;
                     //andItem.NewAssessmentRuleId = 0;
                     assessmentAndItems.Add(andItem);
                 }
@@ -668,6 +833,74 @@ namespace EIRS.Admin.Controllers
                 }
 
                 return assessmentAndItems;
+            }
+        }
+
+        [NonAction]
+        public IList<MdaserviceRollover> GetMDAServiceandMDAServiceItem()
+        {
+            using (_db2 = new EIRSEntities())
+            {
+                List<MdaserviceRollover> MADServiceAndItems = new List<MdaserviceRollover>();
+                var presentYear = DateTime.Now.Year;
+                var newYear = presentYear + 1;
+                //var retVal = (from r in _db2.MDA_Services
+                //              join a in _db2.MAP_MDAService_MDAServiceItem
+                //              on r.MDAServiceID equals a.MDAServiceID
+                //              where r.TaxYear == presentYear
+                //              select new
+                //              {
+                //                  active = r.Active,
+                //                  taxYear = newYear,
+                //                  mdaserviceid = r.TaxMonth,
+                //                  percentage = b.Percentage,
+                //                  taxBaseAmount = b.TaxBaseAmount,
+                //                  taxAmount = b.TaxAmount,
+                //                  assessmentItemName = b.AssessmentItemName,
+                //                  assessmentRuleCode = r.AssessmentRuleCode,
+                //                  assessmentRuleName = r.AssessmentRuleName,
+                //                  assessmentAmount = r.AssessmentAmount,
+                //                  assessmentRuleId = r.AssessmentRuleID
+                //              }).ToList();
+
+                var retVal = from m in _db2.MDA_Services
+                             join mi in _db2.MAP_MDAService_MDAServiceItem
+                                on m.MDAServiceID equals mi.MDAServiceID into miGroup
+                            from mi in miGroup.DefaultIfEmpty() 
+                            where m.TaxYear == 2024
+                            select new
+                            {
+                                m.MDAServiceID,
+                                m.MDAServiceCode,
+                                m.MDAServiceName,
+                                m.RuleRunID,
+                                m.PaymentFrequencyID,
+                                m.ServiceAmount,
+                                m.TaxYear,
+                                m.PaymentOptionID,
+                                m.Active,
+                                MdaServiceItemId = mi.MDAServiceItemID
+                            };
+
+
+                foreach (var item in retVal)
+                {
+                    MdaserviceRollover andItem = new MdaserviceRollover();
+                    andItem.MdaserviceId = item.MDAServiceID;
+                    andItem.TaxYear = newYear.ToString();
+                    andItem.PaymentFrequencyId = item.PaymentFrequencyID;
+                    andItem.Active = item.Active.Value;
+                    andItem.RuleRunId = item.RuleRunID.Value;
+                    andItem.ServiceAmount = item.ServiceAmount.HasValue ? item.ServiceAmount.Value : 0;
+                    andItem.MdaserviceName = item.MDAServiceName;
+                    andItem.MdaserviceCode = item.MDAServiceCode;
+                    andItem.MdaserviceItemId = item.MdaServiceItemId;
+                    andItem.Msmiid = item.MdaServiceItemId;
+                    andItem.NewMdaserviceId = 0;
+                    MADServiceAndItems.Add(andItem);
+                }
+                SessionManager.lstMdaserviceRollover = MADServiceAndItems;
+                return MADServiceAndItems;
             }
         }
     }

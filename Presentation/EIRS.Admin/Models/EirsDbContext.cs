@@ -20,7 +20,9 @@ namespace EIRS.Admin.Models
 
         public virtual DbSet<AssessmentAndItemRollOver> AssessmentAndItemRollOver { get; set; }
         public virtual DbSet<AssessmentRuleRollover> AssessmentRuleRollover { get; set; }
+        public virtual DbSet<MdaserviceRollover> MdaserviceRollover { get; set; }
         public virtual DbSet<TempAssHolder> TempAssHolder { get; set; }
+        public virtual DbSet<TempMdaHolder> TempMdaHolder { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

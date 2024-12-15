@@ -16,7 +16,7 @@ namespace EIRS.Admin.Models
         public int? MdaserviceId { get; set; }
         public int? NewMdaserviceId { get; set; }
         public int? RuleRunId { get; set; }
-        public decimal ServiceAmount { get; set; }
+        public decimal? ServiceAmount { get; set; }
         public string MdaserviceName { get; set; }
         public string MdaserviceCode { get; set; }
         public int? MdaserviceItemId { get; set; }

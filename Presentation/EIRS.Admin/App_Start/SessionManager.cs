@@ -55,6 +55,11 @@ namespace EIRS.Admin
             get { return HttpContext.Current.Session["lstTempAssHolder"] != null ? JsonConvert.DeserializeObject<IList<TempAssHolder>>(HttpContext.Current.Session["lstTempAssHolder"].ToString()) : null; }
             set { HttpContext.Current.Session["lstTempAssHolder"] = JsonConvert.SerializeObject(value);}
         }
+        public static IList<TempMdaHolder> lsttempMdaHolder
+        {
+            get { return HttpContext.Current.Session["lsttempMdaHolder"] != null ? JsonConvert.DeserializeObject<IList<TempMdaHolder>>(HttpContext.Current.Session["lsttempMdaHolder"].ToString()) : null; }
+            set { HttpContext.Current.Session["lsttempMdaHolder"] = JsonConvert.SerializeObject(value);}
+        }
 
         public static IList<AssessmentRule_Profile> lstAssessmentRuleProfile
         {
@@ -65,6 +70,11 @@ namespace EIRS.Admin
         {
             get { return HttpContext.Current.Session["lstAssessmentAndItemRollOver"] != null ? JsonConvert.DeserializeObject<IList<AssessmentAndItemRollOver>>(HttpContext.Current.Session["lstAssessmentRuleProfile"].ToString()) : null; }
             set { HttpContext.Current.Session["lstAssessmentAndItemRollOver"] = JsonConvert.SerializeObject(value); ; }
+        }
+        public static IList<MdaserviceRollover> lstMdaserviceRollover
+        {
+            get { return HttpContext.Current.Session["lstMdaserviceRollover"] != null ? JsonConvert.DeserializeObject<IList<MdaserviceRollover>>(HttpContext.Current.Session["lstMdaservices"].ToString()) : null; }
+            set { HttpContext.Current.Session["lstMdaserviceRollover"] = JsonConvert.SerializeObject(value); ; }
         }
 
         public static IList<AssessmentRule_AssessmentItem> lstAssessmentRuleItem
@@ -82,6 +92,11 @@ namespace EIRS.Admin
         {
             get { return HttpContext.Current.Session["lstAssesRule"] != null ? JsonConvert.DeserializeObject<IList<Assessment_Rules>>(HttpContext.Current.Session["lstAssesRule"].ToString()) : null; }
             set { HttpContext.Current.Session["lstAssesRule"] = JsonConvert.SerializeObject(value); ; }
+        }
+        public static IList<MDA_Services> lstMDAServices
+        {
+            get { return HttpContext.Current.Session["lstMDAServices"] != null ? JsonConvert.DeserializeObject<IList<MDA_Services>>(HttpContext.Current.Session["lstMDAServices"].ToString()) : null; }
+            set { HttpContext.Current.Session["lstMDAServices"] = JsonConvert.SerializeObject(value); ; }
         }
 
         public static IList<Assessment_AssessmentItem> lstAssessmentItem

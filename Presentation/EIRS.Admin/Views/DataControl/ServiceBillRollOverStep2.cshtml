@@ -3,25 +3,26 @@
 @model IPagedList<EIRS.BOL.MDA_Services>
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@{
-    ViewBag.Title = "Service Bill Roll Over Step 1";
-}
 
-<h2>Service Bill Roll Over Step 1</h2>
+@{
+    ViewBag.Title = "Service Bill Roll Over Step 2";
+ }
+
+<h2>Service Bill Roll Over Step 2</h2>
 
 <div class="row">
     <div class="col-xs-12 col-sm-7">
         <h1 class="page-title txt-color-blueDark">
             <i class="fa fa-lg fa-fw fa-life-saver"></i>
-            MDA Services Roll-Over
+            Continue MDA Services Roll-Over
         </h1>
     </div>
     <div class="col-xs-12 col-sm-5 text-right">
-        <a href="@Url.Action("ServiceBillRollOverStep2","DataControl")"
+        <a href="@Url.Action("ServiceBillRollOverStep3","DataControl")"
            class="btn btn-info"
            id="processRollOverButton"
            onclick="return showLoader();">
-            Continue RollOver
+            Final RollOver Process
         </a>
     </div>
 </div>
@@ -30,8 +31,7 @@
     <img src="~/Content/Images/ajax-loader.gif" alt="Loading..." />
 </div>
 
-
-@using (Html.BeginForm("ServiceBillRollOverStep1", "DataControl", FormMethod.Get))
+@using (Html.BeginForm("ServiceBillRollOverStep2", "DataControl", FormMethod.Get))
 {
     <p>
         Find by MDA SERVICE NAME: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
@@ -44,7 +44,7 @@
     <table class="table">
         <tr>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MDAServiceCode)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MDAServiceName)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().MDAServiceItemName)</th>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().RuleRunID)</th>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().ServiceAmount)</th>
             <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TaxYear)</th>
@@ -52,8 +52,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                 <td>@Html.DisplayFor(modelItem => item.MDAServiceCode)</td>
-                <td>@Html.DisplayFor(modelItem => item.MDAServiceName)</td>
+                <td>@Html.DisplayFor(modelItem => item.MDAServiceCode)</td>
+                <td>@Html.DisplayFor(modelItem => item.MDAServiceItemName)</td>
                 <td>@Html.DisplayFor(modelItem => item.RuleRunID)</td>
                 <td>@Html.DisplayFor(modelItem => item.ServiceAmount)</td>
                 <td>@Html.DisplayFor(modelItem => item.TaxYear)</td>
@@ -69,7 +69,7 @@ else
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("ServiceBillRollOverStep1",
+@Html.PagedListPager(Model, page => Url.Action("ServiceBillRollOverStep2",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 <script>
